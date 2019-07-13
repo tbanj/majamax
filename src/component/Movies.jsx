@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Storage from "../localstorage/Storage";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
@@ -41,15 +40,15 @@ class Movies extends Component {
     getItem.storeItem(getMovies());
   }
 
-  delete_movie(id) {
+  handleDelete = id => {
     getItem.deleteItemFromStorage(id);
+    console.log(this.state.movies);
     movieListA = getItem.getItemsFromStorage();
+    console.log(movieListA);
     this.setState({ movies: movieListA });
-  }
+  };
 
   handleLike = movie => {
-    console.log(movie);
-
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     movies[index] = { ...movies[index] };
@@ -68,6 +67,8 @@ class Movies extends Component {
 
   // use to sort ascending & descending order
   handleSort = sortColumn => {
+    console.log(sortColumn);
+
     this.setState({ sortColumn: sortColumn });
   };
 
@@ -104,8 +105,8 @@ class Movies extends Component {
                     // clickGenre={genres._id}
                     onItemSelect={this.handleGenreSelected}
                     selectedItem={this.state.selectedGenre}
-                    // textProperty="name"
-                    // valueProperty="_id"
+                  // textProperty="name"
+                  // valueProperty="_id"
                   />
                 </div>
 
@@ -122,8 +123,8 @@ class Movies extends Component {
               </div>
             </React.Fragment>
           ) : (
-            <h3>No movies in the database</h3>
-          )}
+              <h3>No movies in the database</h3>
+            )}
         </div>
         <Pagination
           onPageChange={this.handlePageChange}
