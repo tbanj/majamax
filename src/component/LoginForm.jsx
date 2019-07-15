@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
+import Joi from 'joi-browser';
+
 import Input from './template/Input';
 class Loginform extends Component {
     state = {
         account: { username: '', password: '' },
-    errors: {}
+        errors: {}
     };
 
-    validateProperty =({ name, value})  => {
-        if(name ==='username') {
-            if(value.trim() === '') return 'username is required!';
-        }
 
-        if(name ==='password') {
-            if(value.trim() === '') return 'password is required!';
-        }
+    schema = {
+        username: Joi.string().required().label("Username"),
+        password: Joi.string().required().label("Password")
+    };
+
+
+    validateProperty = ({ name, value }) => {
+        // es6 computed property is use when name of data will picked from
+        // a form that have multiple name fields
+        const obj = { [name]: value };
+        const schema = { [name]: this.schema[name] }
+        const { error } = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
     }
 
     handleChange = ({ currentTarget: input }) => {
-        const errors = {...this.state.errors}
-        const errorMessage =this.validateProperty(input);
-        if( errorMessage) errors[input.name] = errorMessage;
+        const errors = { ...this.state.errors }
+        const errorMessage = this.validateProperty(input);
+        if (errorMessage) errors[input.name] = errorMessage;
         else delete errors[input.name];
 
 
@@ -28,16 +36,19 @@ class Loginform extends Component {
         this.setState({ account, errors })
     };
 
-    validate = ()=> {
+    validate = () => {
+        /* joi terminates errors as soon as it encounter 1, so other parts of the code is not being run
+            either they contain error or not */
+        const option = { abortEarly: false };
+        const result = Joi.validate(this.state.account, this.schema, option);
+        console.log(result)
+
+        if (!result.error) return null;
+
         const errors = {};
-
-        const { account} = this.state;
-        if( account.username.trim() === '')
-            errors.username = 'Username is required.';
-        if( account.password.trim() === '')
-            errors.password= 'Password is required.';
-
-        return Object.keys(errors).length === 0 ? null : errors;
+        for (let item of result.error.details)
+            errors[item.path[0]] = item.message;
+        return errors;
     };
 
     handleSubmit = (e) => {
@@ -46,8 +57,8 @@ class Loginform extends Component {
         e.preventDefault();
         const errors = this.validate();
         console.log(errors);
-        this.setState({errors});
-        if(errors) return;
+        this.setState({ errors });
+        if (errors) return;
 
         // const username = this.username.current.value;
         console.log(` SUBMITTED`);
@@ -64,13 +75,15 @@ class Loginform extends Component {
                     <Input autoFocus type="text" name="username" value={account.username} label="Username"
                         onChange={this.handleChange}
                         error={errors.username} />
-                    <Input type="password" name="password" value={account.password} label="Password" 
-                    onChange={this.handleChange}  error={errors.password} />
+                    <Input type="password" name="password" value={account.password} label="Password"
+                        onChange={this.handleChange} error={errors.password} />
                     <div className="form-check">
                         <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                         <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                     </div>
-                    <button className="btn btn-primary">Submit</button>
+                    <button
+                        disabled={this.validate()}
+                        className="btn btn-primary">Submit</button>
                 </form>
             </div>
         );
