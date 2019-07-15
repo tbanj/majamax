@@ -9,6 +9,9 @@ class TableBody extends Component {
   };
 
   createKey = (item, column) => {
+    // console.log(column);
+    // <Link to="/movies">{item.title}</Link>
+    // column.path = item_title;
     return item._id + (column.path || column.key);
   };
   render() {

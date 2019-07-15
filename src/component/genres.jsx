@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 class Genres extends Component {
   render() {
     const {
@@ -27,7 +28,7 @@ class Genres extends Component {
             }
             key={genre[valueProperty]}
           >
-            {genre[textProperty]}
+            <Link to={`/genres/${index}`} >{genre[textProperty]}  </Link>
           </li>
         ))}
       </ul>

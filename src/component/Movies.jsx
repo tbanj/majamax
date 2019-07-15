@@ -108,6 +108,7 @@ class Movies extends Component {
 
     return (
       <div>
+
         <div className="container-fluid">
           {AllMovies.length > 0 ? (
             <React.Fragment>
