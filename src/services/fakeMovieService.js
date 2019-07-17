@@ -97,7 +97,7 @@ export function saveMovie(movie) {
   }
 
   // return movieInDb;
-  debugger;
+
 }
 
 export function deleteMovie(id) {

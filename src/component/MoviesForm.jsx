@@ -9,16 +9,26 @@ import Joi from 'joi-browser';
 const serverItemMovies = require('../services/fakeMovieService.js');
 const getItem = new Storage();
 class MoviesForm extends FormEdit {
-    state = {
-        data: {
-            title: '',
-            genre: '',
-            numberInStock: 0, dailyRentalRate: 0
-        },
-        errors: {},
-        genres: [],
-        genId: '',
-    };
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: {
+                title: '',
+                genre: '',
+                numberInStock: 0, dailyRentalRate: 0
+            },
+
+            errors: {},
+            genres: [],
+            genId: '',
+        };
+
+        const datas = JSON.parse(localStorage.getItem("movieItems"))
+        const data = datas.find(m => m._id === this.props.match.params.id);
+        if (!data) { this.props.history.push('/not-found'); return; }
+    }
 
     schema = {
         _id: Joi.string().required(),
@@ -28,14 +38,17 @@ class MoviesForm extends FormEdit {
         dailyRentalRate: Joi.number().required().min(1).max(10).label("Rate")
     };
 
-    componentWillMount() {
-        // const serverData = serverItemMovies.getMovies();
 
-        if (getItem.getItemsFromStorage().length > 0) {
-            const datas = JSON.parse(localStorage.getItem("movieItems"))
-            console.log(datas.title);
-            const data = datas.find(m => m._id === this.props.match.params.id);
-            const gen = getGenres().find(m => m.name === data.genre.name)
+
+
+
+    componentDidMount() {
+        const genres = [...getGenres()];
+        this.setState({ genres: genres });
+        const datas = getItem.getItemsFromStorage();
+        const data = datas.find(m => m._id === this.props.match.params.id);
+        if (data) {
+            const gen = genres.find(m => m.name === data.genre.name)
             const input = {
                 _id: data._id,
                 title: data.title,
@@ -44,35 +57,9 @@ class MoviesForm extends FormEdit {
                 dailyRentalRate: parseFloat(data.dailyRentalRate)
             };
             this.setState({ data: input, genId: gen._id });
-
+            console.log(this.state.data);
         }
     }
-
-
-
-    componentDidMount() {
-        const genres = [...getGenres()];
-        this.setState({ genres: genres });
-        const datas = getItem.getItemsFromStorage();
-        console.log(this.props.match.params.id);
-        const data = datas.find(m => m._id === this.props.match.params.id);
-        const gen = genres.find(m => m.name === data.genre.name)
-        const input = {
-            _id: data._id,
-            title: data.title,
-            genre: data.genre.name,
-            numberInStock: parseInt(data.numberInStock),
-            dailyRentalRate: parseFloat(data.dailyRentalRate)
-        };
-        this.setState({ data: input, genId: gen._id });
-        console.log(this.state.data);
-    }
-
-    // handleStoreItem() {
-
-    //     this.setState({ movies: getMovies() });
-    //     getItem.storeItem(getMovies());
-    //   }
 
 
     doSubmit = () => {
