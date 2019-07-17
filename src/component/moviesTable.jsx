@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import queryString from 'querystring';
 import Like from "./like";
 import Table from "./table";
 
 // const x = <h1>ade</h1>; // react element
 
 class MoviesTable extends Component {
+
   columns = [
-    { path: "title", label: "Title", content: movie => <Link to={`/movies/${movie._id}`} >{movie.title}</Link> },
+    { path: "title", label: "Title", content: (movie) => <Link to={`/movies/${this.props.currentPage}/${movie._id}`} >{movie.title}</Link> },
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
@@ -33,6 +35,7 @@ class MoviesTable extends Component {
 
   render() {
     const { movies, onSort, sortColumn } = this.props;
+
 
     return (
       <Table

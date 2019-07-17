@@ -6,13 +6,14 @@ import "./App.css";
 import Movies from "./component/Movies";
 import Dashboard from "./component/Dashboard";
 import Product from "./component/Product";
-import ProductDetails from "./component/productdetail/ProductDetails";
 import Customers from "./component/Customers";
 import Rentals from "./component/Rentals";
 import Navbar from "./component/template/Navbar";
 import NotFound from "./component/template/NotFound";
 import MoviesForm from "./component/MoviesForm";
 import LoginForm from "./component/LoginForm";
+import RegisterForm from "./component/RegisterForm";
+import NewMovie from "./component/NewMovie";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/login" component={LoginForm} />
-          <Route path="/movies/:id" component={MoviesForm} />
+
 
           <Route path="/product" component={Product} />
           {/* to pass props into a component that have a route
@@ -32,8 +33,11 @@ function App() {
           <Route path="/not-found" component={NotFound} />
           <Route path="/customers" component={Customers} />
           <Route path="/rentals" component={Rentals} />
-
+          <Route path="/register" component={RegisterForm} />
+          <Route path="/movies/:page/:id" render={(props) => <MoviesForm sortBy="newest" {...props} />} />
+          <Route path="/movies/new" component={NewMovie} />
           <Route path="/movies" component={Movies} />
+
           <Redirect from="/" exact to="/movies" />
           <Redirect to="/not-found" />
         </Switch>

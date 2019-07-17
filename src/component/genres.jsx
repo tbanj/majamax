@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 class Genres extends Component {
   render() {
     const {
@@ -19,7 +18,6 @@ class Genres extends Component {
             style={{ cursor: "pointer" }}
             onClick={() => {
               onItemSelect(genre);
-              console.log(genre[textProperty]);
             }}
             className={
               genre === selectedItem
@@ -28,7 +26,7 @@ class Genres extends Component {
             }
             key={genre[valueProperty]}
           >
-            <Link to={`/genres/${index}`} >{genre[textProperty]}  </Link>
+            {genre[textProperty]}
           </li>
         ))}
       </ul>

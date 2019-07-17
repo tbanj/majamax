@@ -1,7 +1,7 @@
 class Storage {
   storeItem(item) {
+
     let movieListA;
-    // let arrayNote =[];
     // Check if any items in ls
 
     if (localStorage.getItem("movieItems") === null) {
@@ -33,6 +33,7 @@ class Storage {
       // Reset ls
       localStorage.setItem("movieItems", JSON.stringify(movieListA));
     }
+
   }
 
   getItemsFromStorage() {
@@ -49,8 +50,8 @@ class Storage {
   updateItemStorage(updatedItem) {
     let movieListA = JSON.parse(localStorage.getItem("movieItems"));
 
-    movieListA.forEach(function(item, index) {
-      if (updatedItem.id === item.id) {
+    movieListA.forEach(function (item, index) {
+      if (updatedItem._id === item._id) {
         movieListA.splice(index, 1, updatedItem);
       }
     });
@@ -60,7 +61,7 @@ class Storage {
   deleteItemFromStorage(id) {
     let movieListA = JSON.parse(localStorage.getItem("movieItems"));
 
-    movieListA.forEach(function(item, index) {
+    movieListA.forEach(function (item, index) {
       if (id === item._id) {
         movieListA.splice(index, 1);
       }

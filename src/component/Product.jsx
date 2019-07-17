@@ -15,22 +15,16 @@ class Product extends Component {
         }
     }
 
-
     handleGenreSelected = genre => {
-        console.log(genre);
         this.setState({ selectedGenre: genre, currentPage: 1 });
     };
 
-
     componentDidMount() {
         // const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-        // console.log(genres);
-
         // this.setState({ genres: genres });
     }
     render() {
         const { genres } = this.state;
-        console.log(genres);
 
         return (
             <div>

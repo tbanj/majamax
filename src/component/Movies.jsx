@@ -1,16 +1,19 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import Storage from "../localstorage/Storage";
-import { getMovies } from "../services/fakeMovieService";
+// import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import Genres from "./genres";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
-// const movies = require("./../api/fakeMoviesService.js");
+
+const getMovies = require("../services/fakeMovieService");
 
 let movieListA = [];
 const getItem = new Storage();
+const getMov = new Storage();
 class Movies extends Component {
   state = {
     movies: [],
@@ -22,29 +25,40 @@ class Movies extends Component {
   };
 
   componentWillMount() {
+    // if (getMovies().length > getItem.getItemsFromStorage().length) {
+    //   this.setState({ movies: getMovies() });
+
+    //   return;
+    // }
+
     if (getItem.getItemsFromStorage().length === 0) {
-      this.handleStoreItem();
+      console.log('equal to 0');
+
+      this.handleStoreItem(getMovies.getMovies());
       return;
     }
-    movieListA = getItem.getItemsFromStorage();
-    this.setState({ movies: movieListA });
+    else {
+      movieListA = getItem.getItemsFromStorage();
+      this.setState({ movies: movieListA });
+    }
+
+
   }
 
   componentDidMount() {
     const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     this.setState({ genres: genres });
+    // this.handleStoreItem();
   }
 
-  handleStoreItem() {
-    this.setState({ movies: getMovies() });
-    getItem.storeItem(getMovies());
+  handleStoreItem(data) {
+    this.setState({ movies: data });
+    getItem.storeItem(data);
   }
 
   handleDelete = id => {
     getItem.deleteItemFromStorage(id);
-    console.log(this.state.movies);
     movieListA = getItem.getItemsFromStorage();
-    console.log(movieListA);
     this.setState({ movies: movieListA });
   };
 
@@ -57,7 +71,6 @@ class Movies extends Component {
   };
 
   handleGenreSelected = genre => {
-    console.log(genre);
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
@@ -67,7 +80,6 @@ class Movies extends Component {
 
   // use to sort ascending & descending order
   handleSort = sortColumn => {
-    console.log(sortColumn);
 
     this.setState({ sortColumn: sortColumn });
   };
@@ -103,8 +115,6 @@ class Movies extends Component {
     } = this.state;
 
     const { totalCount, data: movies } = this.getPageData();
-    console.log(totalCount);
-
 
     return (
       <div>
@@ -125,9 +135,11 @@ class Movies extends Component {
                 </div>
 
                 <div className="col-md-9">
+                  <div><Link to="/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
                   <h3>Showing movies {totalCount} in the database</h3>
                   <MoviesTable
                     movies={movies}
+                    currentPage={currentPage}
                     sortColumn={sortColumn}
                     onDelete={this.handleDelete}
                     onLike={this.handleLike}

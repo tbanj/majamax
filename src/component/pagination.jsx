@@ -7,13 +7,12 @@ import _ from "lodash";
 const Pagination = props => {
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
   const pageCount = Math.ceil(itemsCount / pageSize);
-  console.log(currentPage);
+
 
   if (pageCount === 1) return null;
   // we want to achieve [1 ...pageCount]
   // we add 1 to it so that it can return the last number cos initially it will be zero
   const pages = _.range(1, pageCount + 1);
-
   return (
     <React.Fragment>
       <nav>
@@ -31,6 +30,7 @@ const Pagination = props => {
                 onClick={() => {
                   onPageChange(page);
                 }}
+                to={`/movies/${page}`}
               >
                 {page}
               </Link>

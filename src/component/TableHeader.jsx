@@ -18,7 +18,6 @@ class TableHeader extends Component {
 
   renderSortIcon = column => {
     const { sortColumn } = this.props;
-    console.log(column);
     if (column.path !== sortColumn.path) {
       return null;
     }
