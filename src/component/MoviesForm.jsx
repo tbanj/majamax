@@ -27,7 +27,7 @@ class MoviesForm extends FormEdit {
 
         const datas = JSON.parse(localStorage.getItem("movieItems"))
         const data = datas.find(m => m._id === this.props.match.params.id);
-        if (!data) { this.props.history.push('/not-found'); return; }
+        if (!data) { this.props.history.replace('/not-found'); return; }
     }
 
     schema = {
