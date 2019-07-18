@@ -1,3 +1,5 @@
+## Project url is at https://5d303e493195ad1f6db0a823--majamax.netlify.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
