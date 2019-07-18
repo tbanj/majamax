@@ -49,7 +49,8 @@ class NewMovie extends Form {
                 title: this.state.data.title,
                 genre: { _id: this.state.data.gen, name: findGenre.name },
                 numberInStock: parseInt(this.state.data.numberInStock),
-                dailyRentalRate: parseFloat(this.state.data.dailyRentalRate)
+                dailyRentalRate: parseFloat(this.state.data.dailyRentalRate),
+                liked: false
             };
 
             serverItemMovies.saveMovie(input);

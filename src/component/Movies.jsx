@@ -13,7 +13,6 @@ const getMovies = require("../services/fakeMovieService");
 
 let movieListA = [];
 const getItem = new Storage();
-const getMov = new Storage();
 class Movies extends Component {
   state = {
     movies: [],
@@ -67,6 +66,7 @@ class Movies extends Component {
     const index = movies.indexOf(movie);
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
+    getItem.storeItem(movies);
     this.setState({ movies });
   };
 

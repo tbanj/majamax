@@ -33,7 +33,6 @@ class Storage {
       // Reset ls
       localStorage.setItem("movieItems", JSON.stringify(movieListA));
     }
-
   }
 
   getItemsFromStorage() {

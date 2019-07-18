@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './template/Navbar';
 import Genres from './genres';
 import { getGenres } from "../services/fakeGenreService";
-import _ from "lodash";
+// import _ from "lodash";
 
 
 class Product extends Component {

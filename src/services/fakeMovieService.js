@@ -87,6 +87,7 @@ export function saveMovie(movie) {
     movieInDb.genre = genres.find(g => g._id === movie.genre._id);
     movieInDb.numberInStock = movie.numberInStock;
     movieInDb.dailyRentalRate = movie.dailyRentalRate;
+
   }
 
   else if (!movieInDb._id) {
@@ -95,7 +96,8 @@ export function saveMovie(movie) {
     movies.push({ _id: movieInDb._id, ...movie });
     console.log(movies);
   }
-
+  console.log(movies);
+  // debugger;
   // return movieInDb;
 
 }

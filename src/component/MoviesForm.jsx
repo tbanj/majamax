@@ -79,7 +79,7 @@ class MoviesForm extends FormEdit {
                 numberInStock: parseInt(this.state.data.numberInStock),
                 dailyRentalRate: parseFloat(this.state.data.dailyRentalRate).toFixed(1),
             };
-            // serverItemMovies.saveMovie(input);
+            serverItemMovies.saveMovie(input);
             // getItem.storeItem(input);
             getItem.updateItemStorage(input)
             this.props.history.push("/movies");
@@ -88,12 +88,10 @@ class MoviesForm extends FormEdit {
     }
 
     render() {
-        const { match, history } = this.props;
-        const { data } = this.state;
-        // console.log(movies);
+        // const { match, history } = this.props;
         return (
             <div>
-                <h1>Movie Form {match.params.id}</h1>
+                <h1 className="container-fluid col-md-4">Movie Review</h1>
                 <form onSubmit={this.handleSubmit} className="container-fluid col-md-4">
                     {this.renderInput('title', 'Title', 'text', true)}
                     {/* dropdown */}

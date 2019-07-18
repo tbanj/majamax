@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import queryString from 'querystring';
 import Like from "./like";
 import Table from "./table";
 

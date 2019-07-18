@@ -74,7 +74,7 @@ class FormEdit extends Component {
 
     renderDropdown(name, label) {
         // console.log(valued);
-        const { genres, data, errors } = this.state;
+        const { genres, errors } = this.state;
         return (
             <div className="form-group">
                 <label htmlFor={name}>{label}</label>
