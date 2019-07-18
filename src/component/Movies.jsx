@@ -29,11 +29,7 @@ class Movies extends Component {
   };
 
   componentWillMount() {
-    // if (getMovies().length > getItem.getItemsFromStorage().length) {
-    //   this.setState({ movies: getMovies() });
 
-    //   return;
-    // }
 
     if (getItem.getItemsFromStorage().length === 0) {
 
@@ -49,6 +45,11 @@ class Movies extends Component {
   }
 
   componentDidMount() {
+    /* write place to call api is componentDidMount()
+      pending still checking for data
+      resolved (success)
+      rejected (failure)
+    */
     const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     this.setState({ genres: genres });
     // this.handleStoreItem();
