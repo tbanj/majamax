@@ -77,10 +77,8 @@ export function getMovie(id) {
 }
 
 export function saveMovie(movie) {
-  console.log(movie);
 
   let movieInDb = movies.find(m => m._id === movie._id) || {};
-  // console.log(genresAPI.getGenres());
   let genres = genresAPI.getGenres();
   if (movieInDb._id) {
     movieInDb.title = movie.title;
@@ -91,14 +89,10 @@ export function saveMovie(movie) {
   }
 
   else if (!movieInDb._id) {
-    movieInDb._id = Date.now();
-    movieInDb._id = movieInDb._id.toString()
+    movieInDb._id = Date.now().toString();
     movies.push({ _id: movieInDb._id, ...movie });
-    console.log(movies);
   }
-  console.log(movies);
-  // debugger;
-  // return movieInDb;
+
 
 }
 

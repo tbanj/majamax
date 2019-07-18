@@ -10,12 +10,10 @@ class FormEdit extends Component {
     validateProperty = ({ name, value }) => {
         // es6 computed property is use when name of data will picked from
         // a FormEdit that have multiple name fields
-        console.log(name, value);
 
         const obj = { [name]: value };
         const schema = { [name]: this.schema[name] }
         const { error } = Joi.validate(obj, schema);
-        console.log(error);
         return error ? error.details[0].message : null;
     }
 
@@ -26,7 +24,6 @@ class FormEdit extends Component {
             either they contain error or not */
         const option = { abortEarly: false };
         const result = Joi.validate(this.state.data, this.schema, option);
-        console.log(result);
         if (!result.error) return null;
         const errors = {};
         for (let item of result.error.details)
@@ -59,10 +56,8 @@ class FormEdit extends Component {
     };
 
     checkContent = (valued) => {
-        console.log(this.state.data);
         let idValue = this.state.genres.find(m => m.name === valued);
         return idValue;
-        // console.log(idValue);
     }
     renderButton(label) {
         return (
@@ -73,7 +68,6 @@ class FormEdit extends Component {
     }
 
     renderDropdown(name, label) {
-        // console.log(valued);
         const { genres, errors } = this.state;
         return (
             <div className="form-group">

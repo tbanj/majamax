@@ -14,7 +14,6 @@ class Form extends Component {
         const schema = { [name]: this.schema[name] }
         // debugger;
         const { error } = Joi.validate(obj, schema);
-        console.log(error);
         return error ? error.details[0].message : null;
     }
 

@@ -17,7 +17,9 @@ class MoviesForm extends FormEdit {
             data: {
                 title: '',
                 genre: '',
-                numberInStock: 0, dailyRentalRate: 0
+                numberInStock: 0,
+                dailyRentalRate: 0,
+                liked: false,
             },
 
             errors: {},
@@ -25,13 +27,14 @@ class MoviesForm extends FormEdit {
             genId: '',
         };
 
-        const datas = JSON.parse(localStorage.getItem("movieItems"))
+        const datas = JSON.parse(localStorage.getItem("movieItems"));
         const data = datas.find(m => m._id === this.props.match.params.id);
         if (!data) { this.props.history.replace('/not-found'); return; }
     }
 
     schema = {
         _id: Joi.string().required(),
+        liked: Joi.boolean().required(),
         title: Joi.string().required().label("Title"),
         genre: Joi.string().required().label("Genre"),
         numberInStock: Joi.number().positive().required().label("Number in Stock"),
@@ -48,25 +51,23 @@ class MoviesForm extends FormEdit {
         const datas = getItem.getItemsFromStorage();
         const data = datas.find(m => m._id === this.props.match.params.id);
         if (data) {
-            const gen = genres.find(m => m.name === data.genre.name)
-            const input = {
-                _id: data._id,
-                title: data.title,
-                genre: data.genre.name,
-                numberInStock: parseInt(data.numberInStock),
-                dailyRentalRate: parseFloat(data.dailyRentalRate)
-            };
-            this.setState({ data: input, genId: gen._id });
-            console.log(this.state.data);
+            this.setState({ data: this.mapToView(data) });
         }
     }
 
+    mapToView(data) {
+        return {
+            _id: data._id,
+            title: data.title,
+            genre: data.genre.name,
+            numberInStock: parseInt(data.numberInStock),
+            dailyRentalRate: parseFloat(data.dailyRentalRate),
+            liked: data.liked
+        }
+    }
 
     doSubmit = () => {
-        // const username = this.username.current.value;
-        console.log(this.state.data);
         const findGenre = getGenres().find(m => m.name === this.state.data.genre) || {};
-        console.log(findGenre);
         // below check if object is empty
         if (Object.getOwnPropertyNames(findGenre) === 0) { console.log(findGenre); return; }
         else {
@@ -78,6 +79,7 @@ class MoviesForm extends FormEdit {
                 genre: { _id: findGenre._id, name: this.state.data.genre },
                 numberInStock: parseInt(this.state.data.numberInStock),
                 dailyRentalRate: parseFloat(this.state.data.dailyRentalRate).toFixed(1),
+                liked: this.state.data.liked
             };
             serverItemMovies.saveMovie(input);
             // getItem.storeItem(input);

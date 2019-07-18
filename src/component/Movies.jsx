@@ -8,6 +8,7 @@ import { paginate } from "../utils/paginate";
 import Genres from "./genres";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
+import SearchBox from "./template/SearchBox";
 
 const getMovies = require("../services/fakeMovieService");
 
@@ -19,7 +20,11 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     genres: [],
-    selectedGenre: "",
+    selectedGenre: null,
+    searchQuery: "",
+    searchGenre: "",
+    searchStock: "",
+    searchRate: "",
     sortColumn: { path: "title", order: "asc" }
   };
 
@@ -31,7 +36,6 @@ class Movies extends Component {
     // }
 
     if (getItem.getItemsFromStorage().length === 0) {
-      console.log('equal to 0');
 
       this.handleStoreItem(getMovies.getMovies());
       return;
@@ -71,7 +75,7 @@ class Movies extends Component {
   };
 
   handleGenreSelected = genre => {
-    this.setState({ selectedGenre: genre, currentPage: 1 });
+    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
   };
 
   handlePageChange = page => {
@@ -90,12 +94,38 @@ class Movies extends Component {
       pageSize,
       movies: AllMovies,
       selectedGenre,
+      searchQuery,
+      searchGenre,
+      searchStock,
+      searchRate,
       sortColumn
     } = this.state;
-    const filtered =
-      selectedGenre && selectedGenre._id
-        ? AllMovies.filter(m => m.genre._id === selectedGenre._id)
-        : AllMovies;
+    // const filtered =
+    //   selectedGenre && selectedGenre._id
+    //     ? AllMovies.filter(m => m.genre._id === selectedGenre._id)
+    //     : AllMovies;
+
+
+    let filtered = AllMovies;
+    if (isNaN(searchQuery)) {
+      let searchQuer = searchQuery.toLowerCase();
+      filtered = AllMovies.filter((movie) => movie.title.toLowerCase().startsWith(searchQuer));
+    }
+    else if (isNaN(searchGenre)) {
+      let searchGenr = searchGenre.toLowerCase();
+      filtered = AllMovies.filter((movie) => movie.genre.name.toLowerCase().startsWith(searchGenr));
+    }
+
+    else if (searchStock) {
+      filtered = AllMovies.filter((movie) => movie.numberInStock.toString().startsWith(searchStock));
+    }
+
+    else if (searchRate) {
+      filtered = AllMovies.filter((movie) => movie.dailyRentalRate.toString().startsWith(searchRate));
+    }
+
+    else if (selectedGenre && selectedGenre._id)
+      filtered = AllMovies.filter(m => m.genre._id === selectedGenre._id);
 
     // sorting
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
@@ -105,12 +135,46 @@ class Movies extends Component {
     return { totalCount: filtered.length, data: movies };
   }
 
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 })
+  }
+
+  handleSearchGenre = (query) => {
+    this.setState({ searchGenre: query, selectedGenre: null, currentPage: 1 })
+  }
+
+  handleSearchStock = (query) => {
+    this.setState({ searchStock: query, selectedGenre: null, currentPage: 1 })
+  }
+
+  handleSearchRate = (query) => {
+    this.setState({ searchRate: query, selectedGenre: null, currentPage: 1 })
+  }
+
+  // handleOnChange = ({ currentTarget: input }) => {
+  //   console.log(input.value)
+  //   if (isNaN(input.value)) {
+  //     const movieSearch = this.state.movies.filter((movie) =>
+  //       movie.title.toLowerCase().includes(input.value));
+  //     this.setState({ movies: movieSearch })
+  //     return false;
+  //   } else {
+  //     const movieSearch = this.state.movies.filter((movie) =>
+  //       movie.numberInStock.toString().includes(input.value));
+  //     this.setState({ movies: movieSearch })
+  //   }
+  // }
+
   render() {
     const {
       currentPage,
       pageSize,
       movies: AllMovies,
       genres,
+      searchQuery,
+      searchGenre,
+      searchStock,
+      searchRate,
       sortColumn
     } = this.state;
 
@@ -137,7 +201,20 @@ class Movies extends Component {
                 <div className="col-md-9">
                   <div><Link to="/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
                   <h3>Showing movies {totalCount} in the database</h3>
+                  {/* <input type="text" className="form-control" id="moviewSearch" aria-describedby="emailHelp" placeholder="Search Movie" /> */}
+
+                  <div className="row col-md-8 ">
+                    <div className="col-md-3">
+                      <SearchBox value={searchQuery} onChange={this.handleSearch} placeholder={"Search by Title"} /></div>
+                    <div className="col-md-3">
+                      <SearchBox value={searchGenre} onChange={this.handleSearchGenre} placeholder={"Search by Genre"} /></div>
+                    <div className="col-md-3">
+                      <SearchBox value={searchStock} onChange={this.handleSearchStock} placeholder={"Search by Stock"} /></div>
+                    <div className="col-md-3">
+                      <SearchBox value={searchRate} onChange={this.handleSearchRate} placeholder={"Search by Rate"} /></div>
+                  </div>
                   <MoviesTable
+
                     movies={movies}
                     currentPage={currentPage}
                     sortColumn={sortColumn}
