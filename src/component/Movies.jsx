@@ -1,19 +1,27 @@
 import React, { Component } from "react";
+import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import Storage from "../localstorage/Storage";
+import StoreGenre from "../localstorage/StoreGenre";
 // import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
+import httpGenreService from "../services/httpGenreService.js";
+import httpMovieService from "../services/httpMovieService";
+import env from "../env.js";
+// import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import Genres from "./genres";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
 import SearchBox from "./template/SearchBox";
+import 'react-toastify/dist/ReactToastify.css';
 
 const getMovies = require("../services/fakeMovieService");
 
 let movieListA = [];
 const getItem = new Storage();
+const getGenre = new StoreGenre();
 class Movies extends Component {
   state = {
     movies: [],
@@ -28,36 +36,66 @@ class Movies extends Component {
     sortColumn: { path: "title", order: "asc" }
   };
 
-  componentWillMount() {
+  // componentWillMount() {
 
 
-    if (getItem.getItemsFromStorage().length === 0) {
+  //   if (getItem.getItemsFromStorage().length === 0) {
 
-      this.handleStoreItem(getMovies.getMovies());
-      return;
-    }
-    else {
-      movieListA = getItem.getItemsFromStorage();
-      this.setState({ movies: movieListA });
-    }
+  //     this.handleStoreItem(getMovies.getMovies());
+  //     return;
+  //   }
+  //   else {
+  //     movieListA = getItem.getItemsFromStorage();
+  //     this.setState({ movies: movieListA });
+  //   }
 
 
-  }
+  // }
 
-  componentDidMount() {
+  async componentDidMount() {
     /* write place to call api is componentDidMount()
       pending still checking for data
       resolved (success)
       rejected (failure)
     */
-    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-    this.setState({ genres: genres });
+    const res = await httpMovieService.get(`${env.api}/api/movies`);
+    const { data } = await httpGenreService.get(`${env.api}/api/genres`);
+    console.log(res.data);
+
+    if (getItem.getItemsFromStorage().length === 0) {
+
+      this.handleStoreItem(res.data, data);
+      return;
+    }
+    else {
+      movieListA = getItem.getItemsFromStorage();
+      const genresArray = getGenre.getItemsFromStorage();
+      const genres = [{ _id: "", name: "All Genres" }, ...genresArray]
+      this.setState({ movies: movieListA });
+      this.setState({ genres });
+    }
+
+
     // this.handleStoreItem();
+
+
+    // console.log(data);
+
   }
 
-  handleStoreItem(data) {
-    this.setState({ movies: data });
-    getItem.storeItem(data);
+  handleStoreItem(moviesArray, genreArray) {
+
+
+    if (moviesArray) {
+      this.setState({ movies: moviesArray });
+      getItem.storeItem(moviesArray);
+    }
+
+    if (genreArray) {
+      const genres = [{ _id: "", name: "All Genres" }, ...genreArray];
+      this.setState({ genres: genres });
+      getGenre.storeItem(genreArray);
+    }
   }
 
   handleDelete = id => {
@@ -183,7 +221,7 @@ class Movies extends Component {
 
     return (
       <div>
-
+        <ToastContainer />
         <div className="container-fluid">
           {AllMovies.length > 0 ? (
             <React.Fragment>
