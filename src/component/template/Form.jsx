@@ -68,7 +68,7 @@ class Form extends Component {
         return (
             <div className="form-group">
                 <label htmlFor={name}>{label}</label>
-                <select className="form-control select2" onChange={this.handleChange} id={name} name={name} >
+                <select value={this.state.data.genre} className="form-control select2" onChange={this.handleChange} id={name} name={name} >
                     {genres.map((data, key) => (
                         <option value={data._id} key={key}>{data.name}</option>
                     )

@@ -3,21 +3,19 @@ import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import Storage from "../localstorage/Storage";
 import StoreGenre from "../localstorage/StoreGenre";
-// import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
-import httpGenreService from "../services/httpGenreService.js";
-import httpMovieService from "../services/httpMovieService";
+import httpService from "../services/httpService.js";
 import env from "../env.js";
 // import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
+
+import { toast } from 'react-toastify';
 import Genres from "./genres";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
 import SearchBox from "./template/SearchBox";
 import 'react-toastify/dist/ReactToastify.css';
 
-const getMovies = require("../services/fakeMovieService");
 
 let movieListA = [];
 const getItem = new Storage();
@@ -36,21 +34,6 @@ class Movies extends Component {
     sortColumn: { path: "title", order: "asc" }
   };
 
-  // componentWillMount() {
-
-
-  //   if (getItem.getItemsFromStorage().length === 0) {
-
-  //     this.handleStoreItem(getMovies.getMovies());
-  //     return;
-  //   }
-  //   else {
-  //     movieListA = getItem.getItemsFromStorage();
-  //     this.setState({ movies: movieListA });
-  //   }
-
-
-  // }
 
   async componentDidMount() {
     /* write place to call api is componentDidMount()
@@ -58,13 +41,10 @@ class Movies extends Component {
       resolved (success)
       rejected (failure)
     */
-    const res = await httpMovieService.get(`${env.api}/api/movies`);
-    const { data } = await httpGenreService.get(`${env.api}/api/genres`);
-    console.log(res.data);
+
 
     if (getItem.getItemsFromStorage().length === 0) {
-
-      this.handleStoreItem(res.data, data);
+      this.handleStoreItem();
       return;
     }
     else {
@@ -73,35 +53,57 @@ class Movies extends Component {
       const genres = [{ _id: "", name: "All Genres" }, ...genresArray]
       this.setState({ movies: movieListA });
       this.setState({ genres });
+
+      try {
+        const res = await httpService.get(`${env.api}/api/movies`);
+        if (getItem.getItemsFromStorage().length < res.data.length) {
+          this.setState({ movies: res.data });
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 404)
+          toast.error('error encounter when fetching additional movies');
+      }
     }
-
-
-    // this.handleStoreItem();
-
-
-    // console.log(data);
 
   }
 
-  handleStoreItem(moviesArray, genreArray) {
+  async handleStoreItem() {
 
 
-    if (moviesArray) {
-      this.setState({ movies: moviesArray });
-      getItem.storeItem(moviesArray);
+
+    try {
+      const res = await httpService.get(`${env.api}/api/movies`);
+      const { data } = await httpService.get(`${env.api}/api/genres`);
+      toast(`welcome user`);
+
+      if (res.data && data) {
+        const genres = [{ _id: "", name: "All Genres" }, ...data];
+        this.setState({ genres: genres, movies: res.data });
+        getItem.storeItem(res.data);
+        getGenre.storeItem(data);
+      }
+
+
+    } catch (error) {
+      if (error.response && error.response.status === 404)
+        toast.error('error encounter when fetching movies');
     }
 
-    if (genreArray) {
-      const genres = [{ _id: "", name: "All Genres" }, ...genreArray];
-      this.setState({ genres: genres });
-      getGenre.storeItem(genreArray);
-    }
+
   }
 
-  handleDelete = id => {
+  handleDelete = async id => {
     getItem.deleteItemFromStorage(id);
+
     movieListA = getItem.getItemsFromStorage();
     this.setState({ movies: movieListA });
+    try {
+      const res = await httpService.delete(`${env.api}/api/movies/${id}`);
+      toast.success(`movie ${res.data.title} deleted`);
+    } catch (error) {
+      if (error.response && error.response.status === 404)
+        toast.error('already being deleted');
+    }
   };
 
   handleLike = movie => {
@@ -139,10 +141,6 @@ class Movies extends Component {
       searchRate,
       sortColumn
     } = this.state;
-    // const filtered =
-    //   selectedGenre && selectedGenre._id
-    //     ? AllMovies.filter(m => m.genre._id === selectedGenre._id)
-    //     : AllMovies;
 
 
     let filtered = AllMovies;
@@ -190,19 +188,6 @@ class Movies extends Component {
     this.setState({ searchRate: query, selectedGenre: null, currentPage: 1 })
   }
 
-  // handleOnChange = ({ currentTarget: input }) => {
-  //   console.log(input.value)
-  //   if (isNaN(input.value)) {
-  //     const movieSearch = this.state.movies.filter((movie) =>
-  //       movie.title.toLowerCase().includes(input.value));
-  //     this.setState({ movies: movieSearch })
-  //     return false;
-  //   } else {
-  //     const movieSearch = this.state.movies.filter((movie) =>
-  //       movie.numberInStock.toString().includes(input.value));
-  //     this.setState({ movies: movieSearch })
-  //   }
-  // }
 
   render() {
     const {

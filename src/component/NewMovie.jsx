@@ -1,10 +1,13 @@
 import React from 'react';
-import { getGenres } from "../services/fakeGenreService";
+import httpService from "../services/httpService.js";
+import env from "../env.js";
+import { getGenres, genres } from "../services/fakeGenreService";
 // import { serverMovies } from "../services/fakeMovieService.js";
 
 import Form from './template/Form';
 import Joi from 'joi-browser';
 import Storage from "../localstorage/Storage";
+import { toast } from "react-toastify"
 
 
 
@@ -14,48 +17,43 @@ const serverItemMovies = require('../services/fakeMovieService.js');
 const getItem = new Storage();
 class NewMovie extends Form {
     state = {
-        data: { title: '', gen: '', numberInStock: 0, dailyRentalRate: 0 },
+        data: { title: '', genreId: '', numberInStock: 0, dailyRentalRate: 0 },
         errors: {},
         genres: [],
     };
 
-    componentDidMount() {
-        const genres = [{ _id: "", name: "" }, ...getGenres()];
+    async componentDidMount() {
+        const res = await httpService.get(`${env.api}/api/genres`);
+        const genres = [{ _id: "", name: "" }, ...res.data];
         this.setState({ genres: genres });
 
     }
 
     schema = {
         title: Joi.string().required().label("Title"),
-        gen: Joi.string().required().min(1).label("Genre"),
+        genreId: Joi.string().required().min(1).label("Genre"),
         numberInStock: Joi.number().positive().required().label("Number in Stock"),
-        dailyRentalRate: Joi.number().required().min(1).max(10).label("Rate")
+        dailyRentalRate: Joi.number().required().min(1).max(10).label("Rate"),
+
     };
 
-
-
-
-    doSubmit = () => {
-        // const username = this.username.current.value;
-        const findGenre = getGenres().find(m => m._id === this.state.data.gen) || {};
-
+    doSubmit = async () => {
+        const { genres, data } = this.state;
+        const findGenre = genres.find(m => m._id === this.state.data.genreId) || {};
         // below check if object is empty
         if (Object.getOwnPropertyNames(findGenre).length < 1) { console.log(findGenre); return; }
         else {
 
+            try {
+                const res = await httpService.post(`${env.api}/api/movies/`, data);
+                toast.success(`new movie added ${data.title}`);
+                this.props.history.push("/movies");
+                getItem.storeItem(res.data);
 
-            const input = {
-
-                title: this.state.data.title,
-                genre: { _id: this.state.data.gen, name: findGenre.name },
-                numberInStock: parseInt(this.state.data.numberInStock),
-                dailyRentalRate: parseFloat(this.state.data.dailyRentalRate),
-                liked: false
-            };
-
-            serverItemMovies.saveMovie(input);
-            getItem.storeItem(serverItemMovies.getMovies());
-            this.props.history.push("/movies");
+            } catch (error) {
+                if (error.response && error.response.status === 404)
+                    toast.error('movie has being added before');
+            }
         }
 
     }
@@ -70,7 +68,7 @@ class NewMovie extends Form {
                 <form onSubmit={this.handleSubmit} className="container-fluid col-md-4">
                     {this.renderInput('title', 'Title', 'text', true)}
                     {/* dropdown */}
-                    {this.renderDropdown('gen', 'Genre', genres)}
+                    {this.renderDropdown('genreId', 'Genre', genres)}
 
                     {this.renderInput('numberInStock', 'Number in Stock', 'number')}
                     {this.renderInput('dailyRentalRate', 'Rate', 'number')}
