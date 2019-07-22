@@ -1,16 +1,14 @@
 import React from 'react';
-import httpService from "../services/httpService.js";
-import env from "../env.js";
-import { getGenres } from "../services/fakeGenreService";
+import { saveMovieApi } from '../services/movieService.js';
 import Storage from "../localstorage/Storage";
-import StoreGenre from "../localstorage/StoreGenre";
-
+import StorageGenre from "../localstorage/StoreGenre.js";
 
 import Form from './template/Form.jsx';
 import Joi from 'joi-browser';
 import { toast } from "react-toastify";
 
 const getItem = new Storage();
+const getGenreItem = new StorageGenre();
 class MoviesForm extends Form {
 
 
@@ -42,8 +40,8 @@ class MoviesForm extends Form {
     };
 
     async componentDidMount() {
-        const res = await httpService.get(`${env.api}/api/genres`);
-        this.setState({ genres: res.data });
+        const genres = getGenreItem.getItemsFromStorage();
+        this.setState({ genres });
         const datas = getItem.getItemsFromStorage();
         const data = datas.find(m => m._id === this.props.match.params.id);
         if (data) {
@@ -71,11 +69,10 @@ class MoviesForm extends Form {
         if (Object.getOwnPropertyNames(findGenre) === 0) { console.log(findGenre); return; }
         else {
             const input = { ...data };
-            delete input._id;
             delete input.liked;
 
             try {
-                const res = await httpService.put(`${env.api}/api/movies/${this.props.match.params.id}`, input);
+                const res = await saveMovieApi(input);
                 getItem.updateItemStorage({ ...res.data, "liked": data.liked });
                 this.props.history.push("/movies");
                 toast.success(`movie ${input.title} updated successfully`);

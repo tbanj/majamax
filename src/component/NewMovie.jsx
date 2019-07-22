@@ -1,20 +1,15 @@
 import React from 'react';
-import httpService from "../services/httpService.js";
-import env from "../env.js";
-import { getGenres, genres } from "../services/fakeGenreService";
+import { saveMovieApi } from "../services/movieService";
 // import { serverMovies } from "../services/fakeMovieService.js";
 
 import Form from './template/Form';
 import Joi from 'joi-browser';
 import Storage from "../localstorage/Storage";
+import StorageGenre from "../localstorage/StoreGenre.js";
 import { toast } from "react-toastify"
 
-
-
-const serverItemMovies = require('../services/fakeMovieService.js');
-
-
 const getItem = new Storage();
+const getGenreItem = new StorageGenre();
 class NewMovie extends Form {
     state = {
         data: { title: '', genreId: '', numberInStock: 0, dailyRentalRate: 0 },
@@ -22,9 +17,9 @@ class NewMovie extends Form {
         genres: [],
     };
 
-    async componentDidMount() {
-        const res = await httpService.get(`${env.api}/api/genres`);
-        const genres = [{ _id: "", name: "" }, ...res.data];
+    componentDidMount() {
+        const data = getGenreItem.getItemsFromStorage();
+        const genres = [{ _id: "", name: "" }, ...data];
         this.setState({ genres: genres });
 
     }
@@ -45,7 +40,8 @@ class NewMovie extends Form {
         else {
 
             try {
-                const res = await httpService.post(`${env.api}/api/movies/`, data);
+                const res = await saveMovieApi(data);
+                console.log(res.data);
                 toast.success(`new movie added ${data.title}`);
                 this.props.history.push("/movies");
                 getItem.storeItem(res.data);

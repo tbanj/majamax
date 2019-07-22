@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import Storage from "../localstorage/Storage";
 import StoreGenre from "../localstorage/StoreGenre";
-import httpService from "../services/httpService.js";
-import env from "../env.js";
-// import { getGenres } from "../services/fakeGenreService";
+import { getMoviesApi, deleteMovieApi } from "../services/movieService.js";
+import { getGenresApi } from "../services/genreService.js";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 
@@ -14,7 +12,7 @@ import Genres from "./genres";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
 import SearchBox from "./template/SearchBox";
-import 'react-toastify/dist/ReactToastify.css';
+
 
 
 let movieListA = [];
@@ -55,7 +53,7 @@ class Movies extends Component {
       this.setState({ genres });
 
       try {
-        const res = await httpService.get(`${env.api}/api/movies`);
+        const res = await getMoviesApi();
         if (getItem.getItemsFromStorage().length < res.data.length) {
           this.setState({ movies: res.data });
         }
@@ -72,8 +70,8 @@ class Movies extends Component {
 
 
     try {
-      const res = await httpService.get(`${env.api}/api/movies`);
-      const { data } = await httpService.get(`${env.api}/api/genres`);
+      const res = await getMoviesApi();
+      const { data } = await getGenresApi();
       toast(`welcome user`);
 
       if (res.data && data) {
@@ -98,7 +96,7 @@ class Movies extends Component {
     movieListA = getItem.getItemsFromStorage();
     this.setState({ movies: movieListA });
     try {
-      const res = await httpService.delete(`${env.api}/api/movies/${id}`);
+      const res = await deleteMovieApi(id);
       toast.success(`movie ${res.data.title} deleted`);
     } catch (error) {
       if (error.response && error.response.status === 404)
@@ -206,7 +204,6 @@ class Movies extends Component {
 
     return (
       <div>
-        <ToastContainer />
         <div className="container-fluid">
           {AllMovies.length > 0 ? (
             <React.Fragment>
