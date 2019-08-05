@@ -2,7 +2,7 @@ import http from './httpService.js';
 import env from "../env.js";
 
 
-const userEndpoint = `${env.api}/api/users`;
+const userEndpoint = `${env.api}/users`;
 
 export function register(user) {
     return http.post(userEndpoint, {

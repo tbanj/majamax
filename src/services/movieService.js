@@ -2,7 +2,7 @@ import http from './httpService.js';
 import env from "../env.js";
 
 
-const movieEndpoint = `${env.api}/api/movies`;
+const movieEndpoint = `${env.api}/movies`;
 
 export function getMoviesApi() {
     return http.get(movieEndpoint);
