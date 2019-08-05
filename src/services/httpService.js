@@ -1,6 +1,7 @@
 import axios from 'axios';
-import logService from './logService'
+import logService from './logService';
 import { toast } from "react-toastify";
+
 
 axios.interceptors.response.use(null, error => {
     const expectedErrror = error.response && error.response.status >= 400 && error.response.status < 500
@@ -17,10 +18,17 @@ axios.interceptors.response.use(null, error => {
 
 });
 
+function setJwt(jwt) {
+    axios.defaults.headers.common['x-auth-token'] = jwt;
+    // axios.defaults.headers.post
+
+}
+
 export default {
     get: axios.get,
     post: axios.post,
     put: axios.put,
     patch: axios.patch,
     delete: axios.delete,
+    setJwt,
 }

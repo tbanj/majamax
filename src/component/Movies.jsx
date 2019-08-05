@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import _ from "lodash";
 import Storage from "../localstorage/Storage";
 import StoreGenre from "../localstorage/StoreGenre";
 import { getMoviesApi, deleteMovieApi } from "../services/movieService.js";
@@ -7,10 +9,9 @@ import { getGenresApi } from "../services/genreService.js";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 
-import { toast } from 'react-toastify';
 import Genres from "./genres";
 import MoviesTable from "./moviesTable";
-import _ from "lodash";
+
 import SearchBox from "./template/SearchBox";
 
 
@@ -141,6 +142,7 @@ class Movies extends Component {
     } = this.state;
 
 
+
     let filtered = AllMovies;
     if (isNaN(searchQuery)) {
       let searchQuer = searchQuery.toLowerCase();
@@ -199,6 +201,7 @@ class Movies extends Component {
       searchRate,
       sortColumn
     } = this.state;
+    const { user } = this.props;
 
     const { totalCount, data: movies } = this.getPageData();
 
@@ -220,7 +223,12 @@ class Movies extends Component {
                 </div>
 
                 <div className="col-md-9">
-                  <div><Link to="/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
+                  {user && (
+                    <React.Fragment>
+                      <div><Link to="/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
+
+                    </React.Fragment>
+                  )}
                   <h3>Showing movies {totalCount} in the database</h3>
                   {/* <input type="text" className="form-control" id="moviewSearch" aria-describedby="emailHelp" placeholder="Search Movie" /> */}
 
@@ -242,6 +250,7 @@ class Movies extends Component {
                     onDelete={this.handleDelete}
                     onLike={this.handleLike}
                     onSort={this.handleSort}
+                    user={user}
                   />
                 </div>
               </div>

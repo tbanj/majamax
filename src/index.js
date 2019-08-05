@@ -11,6 +11,7 @@ import * as serviceWorker from "./serviceWorker";
 import "./../node_modules/bootstrap/dist/css/bootstrap.css";
 import "./../node_modules/font-awesome/css/font-awesome.css";
 
+console.log('App name ', process.env.REACT_APP_NAME)
 logService.init();
 
 ReactDOM.render(

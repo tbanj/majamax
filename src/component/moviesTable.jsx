@@ -20,17 +20,23 @@ class MoviesTable extends Component {
     },
     {
       key: "Delete",
-      content: movie => (
-        <button
-          type="button"
-          className="btn waves-effect waves-light btn-rounded btn-outline-danger"
-          onClick={() => this.props.onDelete(movie._id)}
-        >
-          Delete
-        </button>
+      content: (this.props.user && this.props.user.isAdmin === true) && (
+        movie => (
+          <button
+            type="button"
+            className="btn waves-effect waves-light btn-rounded btn-outline-danger"
+            onClick={() => this.props.onDelete(movie._id)}
+          >
+            Delete
+          </button>
+        )
       )
+
+
     }
   ];
+
+
 
   render() {
     const { movies, onSort, sortColumn } = this.props;

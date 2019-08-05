@@ -66,7 +66,7 @@ class MoviesForm extends Form {
         const { genres, data } = this.state;
         const findGenre = genres.find(m => m._id === this.state.data.genre) || {};
         // below check if object is empty
-        if (Object.getOwnPropertyNames(findGenre) === 0) { console.log(findGenre); return; }
+        if (Object.getOwnPropertyNames(findGenre) === 0) return;
         else {
             const input = { ...data };
             delete input.liked;

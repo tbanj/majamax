@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { loginWithJwt } from "../services/authService.js";
 import { register } from '../services/userService';
 import Form from './template/Form';
 import Joi from 'joi-browser';
@@ -26,10 +26,10 @@ class RegisterForm extends Form {
 
         try {
             const res = await register(data);
-            localStorage.setItem("vidly-token", res.headers["x-auth-token"]);
-            this.props.history.replace('/');
+            loginWithJwt(res.headers["x-auth-token"]);
+            window.location = '/';
+            // this.props.history.replace('/');
             toast.success(` Register form SUBMITTED ${data.fullname}`);
-            console.log(res);
         } catch (error) {
 
             if (error.response && error.response.status === 400) {

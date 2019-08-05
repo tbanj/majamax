@@ -36,12 +36,11 @@ class NewMovie extends Form {
         const { genres, data } = this.state;
         const findGenre = genres.find(m => m._id === this.state.data.genreId) || {};
         // below check if object is empty
-        if (Object.getOwnPropertyNames(findGenre).length < 1) { console.log(findGenre); return; }
+        if (Object.getOwnPropertyNames(findGenre).length < 1) return;
         else {
 
             try {
                 const res = await saveMovieApi(data);
-                console.log(res.data);
                 toast.success(`new movie added ${data.title}`);
                 this.props.history.push("/movies");
                 getItem.storeItem(res.data);

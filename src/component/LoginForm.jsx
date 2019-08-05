@@ -1,7 +1,7 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 
-
-import { login } from '../services/authService.js';
+import { login, getCurrentUser } from '../services/authService.js';
 import Form from './template/Form.jsx';
 import { toast } from 'react-toastify';
 import Joi from 'joi-browser';
@@ -32,14 +32,21 @@ class Loginform extends Form {
     }
 
     doSubmit = async () => {
-        const { data } = this.state;
+
 
         try {
-            const { data: jwt } = await login(data.username, data.password);
-            // console.log(res.data)
-            localStorage.setItem('vidly-token', jwt);
+            const { data } = this.state;
+            await login(data.username, data.password);
+
             toast.success(`Welcome `);
-            this.props.history.replace('/movies');
+
+            // below code will reload the application & direct user to url below
+            const { state } = this.props.location;
+            window.location = state ? state.from.pathname : '/';
+
+            // below will login the user & prevent the user from coming vack to this url
+            // if the request is successful
+            // this.props.history.replace('/movies');
             // console.log(` Login form SUBMITTED`);
         }
         catch (error) {
@@ -55,6 +62,7 @@ class Loginform extends Form {
     }
 
     render() {
+        if (getCurrentUser()) return <Redirect to="/" />
 
         return (
             <div>
