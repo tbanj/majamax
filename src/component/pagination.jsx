@@ -30,7 +30,7 @@ const Pagination = props => {
                 onClick={() => {
                   onPageChange(page);
                 }}
-                to={`/movies/${page}`}
+                to={`/dashboard/movies/${page}`}
               >
                 {page}
               </Link>

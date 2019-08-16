@@ -74,7 +74,7 @@ class MoviesForm extends Form {
             try {
                 const res = await saveMovieApi(input);
                 getItem.updateItemStorage({ ...res.data, "liked": data.liked });
-                this.props.history.push("/movies");
+                this.props.history.push("/dashboard/movies");
                 toast.success(`movie ${input.title} updated successfully`);
             } catch (error) {
                 if (error.response && error.response.status === 404)
@@ -97,7 +97,7 @@ class MoviesForm extends Form {
                     {this.renderInput('dailyRentalRate', 'Rate', 'number')}
 
                     {/* submit button is implemented in Form.jsx */}
-                    {this.renderButton('Save')}
+                    {this.renderButton('Save', `btn btn-primary`)}
                 </form>
 
             </div>

@@ -9,7 +9,8 @@ import { getCurrentUser } from '../../services/authService.js';
 const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
 
     return (
-        <Route
+
+        < Route
             {...rest}
             render={props => {
                 if (!getCurrentUser()) return <Redirect to={{

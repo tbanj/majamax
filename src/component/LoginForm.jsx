@@ -5,8 +5,9 @@ import { login, getCurrentUser } from '../services/authService.js';
 import Form from './template/Form.jsx';
 import { toast } from 'react-toastify';
 import Joi from 'joi-browser';
+import './form.css';
 
-class Loginform extends Form {
+class LoginForm extends Form {
     constructor(props) {
         super(props)
         this.state = {
@@ -42,9 +43,9 @@ class Loginform extends Form {
 
             // below code will reload the application & direct user to url below
             const { state } = this.props.location;
-            window.location = state ? state.from.pathname : '/';
+            window.location = state ? state.from.pathname : '/dashboard/movies';
 
-            // below will login the user & prevent the user from coming vack to this url
+            // below will login the user & prevent the user from coming back to this url
             // if the request is successful
             // this.props.history.replace('/movies');
             // console.log(` Login form SUBMITTED`);
@@ -62,28 +63,28 @@ class Loginform extends Form {
     }
 
     render() {
-        if (getCurrentUser()) return <Redirect to="/" />
-
+        if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
         return (
-            <div>
-                <h1>
-                    Login Form
-            </h1>
-                <form onSubmit={this.handleSubmit} className="container-fluid col-md-4">
-                    {this.renderInput('username', 'Username', 'email', true)}
-                    {this.renderInput('password', 'Password', 'password')}
+            <div className="backgroundLogin">
+                <div className="card col-md-6 offset-md-3 resizeCard" >
+                    <form onSubmit={this.handleSubmit} className="container-fluid col-md-8"
+                    >
+                        <h3> Login </h3>
+                        {this.renderInput('username', 'Username', 'email', true)}
+                        {this.renderInput('password', 'Password', 'password')}
 
-                    <div className="form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-                    </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                        </div>
 
-                    {/* submit button is implemented in Form.jsx */}
-                    {this.renderButton('Login')}
-                </form>
+                        {/* submit button is implemented in Form.jsx */}
+                        {this.renderButton('Login', `btn btn-block btn-lg btn-primary btn-rounded my-3`, { borderRadius: '60px' })}
+                    </form>
+                </div>
             </div>
         );
     }
 }
 
-export default Loginform;
+export default LoginForm;

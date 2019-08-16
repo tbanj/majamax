@@ -1,0 +1,17 @@
+.removeBackColor {
+	background-color: 'white !important'
+}
+
+
+.data-list button.buttonCheck:hover {
+    display: block !important
+}
+
+/* .data-list .buttonChecker:hover {
+    color:blue;
+} */
+
+
+/* .data-list:hover button {
+    display: block !important
+} */

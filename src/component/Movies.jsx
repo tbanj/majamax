@@ -225,7 +225,7 @@ class Movies extends Component {
                 <div className="col-md-9">
                   {user && (
                     <React.Fragment>
-                      <div><Link to="/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
+                      <div><Link to="/dashboard/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
 
                     </React.Fragment>
                   )}

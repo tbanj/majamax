@@ -1,0 +1,13 @@
+.backgroundLogin {
+    height: -webkit-fill-available;
+     background-image: url(/dashboard_assets/assets/images/background/login-register.jpg);
+}
+
+.resizeCard {
+    top: 30%;
+}
+
+.backgroundRegister {
+    height: -webkit-fill-available;
+     background-image: url(/dashboard_assets/assets/images/background/img5.jpg);
+}

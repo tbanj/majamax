@@ -42,7 +42,7 @@ class NewMovie extends Form {
             try {
                 const res = await saveMovieApi(data);
                 toast.success(`new movie added ${data.title}`);
-                this.props.history.push("/movies");
+                this.props.history.push("/dashboard/movies");
                 getItem.storeItem(res.data);
 
             } catch (error) {
@@ -69,7 +69,7 @@ class NewMovie extends Form {
                     {this.renderInput('dailyRentalRate', 'Rate', 'number')}
 
                     {/* submit button is implemented in Form.jsx */}
-                    {this.renderButton('Save')}
+                    {this.renderButton('Save', `btn btn-primary`)}
                 </form>
             </div>
         );
