@@ -51,17 +51,19 @@ class RegisterForm extends Form {
         // check if user is already login, if yes redirect back to dashboard
         // if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
         return (
-            <div className="backgroundRegister" >
-                <div className="card col-md-6 offset-md-3 resizeCard">
-                    <form onSubmit={this.handleSubmit} className="container-fluid col-md-8">
-                        <h3> Register</h3>
-                        {this.renderInput('username', 'Username', 'email', true)}
-                        {this.renderInput('password', 'Password', 'password')}
-                        {this.renderInput('fullname', 'Name', 'text')}
+            <div className="backgroundRegister row" >
+                <div className="container-fluid">
+                    <div className="card col-md-6 offset-md-3 resizeCard">
+                        <form onSubmit={this.handleSubmit} className="container-fluid col-md-8">
+                            <h3> Register</h3>
+                            {this.renderInput('username', 'Username', 'email', true)}
+                            {this.renderInput('password', 'Password', 'password')}
+                            {this.renderInput('fullname', 'Name', 'text')}
 
-                        {/* submit button is implemented in Form.jsx */}
-                        {this.renderButton('Register', `btn btn-block btn-lg btn-primary btn-rounded my-3`, { borderRadius: '60px' })}
-                    </form>
+                            {/* submit button is implemented in Form.jsx */}
+                            {this.renderButton('Register', `btn btn-block btn-lg btn-primary btn-rounded my-3`, { borderRadius: '60px' })}
+                        </form>
+                    </div>
                 </div>
 
             </div>

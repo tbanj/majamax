@@ -18,10 +18,6 @@ class LoginForm extends Form {
         this._isMounted = false;
 
     }
-
-
-
-
     schema = {
         username: Joi.string().email().required().label("Username"),
         password: Joi.string().required().label("Password")
@@ -65,22 +61,24 @@ class LoginForm extends Form {
     render() {
         if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
         return (
-            <div className="backgroundLogin">
-                <div className="card col-md-6 offset-md-3 resizeCard" >
-                    <form onSubmit={this.handleSubmit} className="container-fluid col-md-8"
-                    >
-                        <h3> Login </h3>
-                        {this.renderInput('username', 'Username', 'email', true)}
-                        {this.renderInput('password', 'Password', 'password')}
+            <div className="backgroundLogin row">
+                <div className="container-fluid">
+                    <div className="card col-md-6 offset-md-3 resizeCard" >
+                        <form onSubmit={this.handleSubmit} className="container-fluid col-md-8"
+                        >
+                            <h3> Login </h3>
+                            {this.renderInput('username', 'Username', 'email', true)}
+                            {this.renderInput('password', 'Password', 'password')}
 
-                        <div className="form-check">
-                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-                        </div>
+                            <div className="form-check">
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                            </div>
 
-                        {/* submit button is implemented in Form.jsx */}
-                        {this.renderButton('Login', `btn btn-block btn-lg btn-primary btn-rounded my-3`, { borderRadius: '60px' })}
-                    </form>
+                            {/* submit button is implemented in Form.jsx */}
+                            {this.renderButton('Login', `btn btn-block btn-lg btn-primary btn-rounded my-3`, { borderRadius: '60px' })}
+                        </form>
+                    </div>
                 </div>
             </div>
         );

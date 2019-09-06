@@ -119,8 +119,9 @@ class Internia extends Component {
 
 
                                 {/* ============================================================== */}
+                                <span data-toggle="collapse" data-target="#navbarSupportedContent"> </span>
                                 <a className="topbartoggler d-block d-md-none waves-effect waves-light"
-                                    data-toggle="tooltip collapse" data-target="#navbarSupportedContent"
+                                    data-toggle="tooltip"
                                     title="" data-original-title="View more"
                                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
                                         className=" fa fa-angle-double-right"></i></a>
@@ -145,7 +146,7 @@ class Internia extends Component {
 
                                     {/* ----------------------- */}
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Calender
+                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Customers
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
@@ -155,7 +156,7 @@ class Internia extends Component {
                                     </li>
 
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Statistic
+                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rentals
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
@@ -175,7 +176,7 @@ class Internia extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
+                                        <a disabled="true" className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
@@ -184,7 +185,7 @@ class Internia extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Equipments
+                                        <a disabled="true" className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Equipments
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
@@ -378,7 +379,7 @@ class Internia extends Component {
                                     component={NewMovie} />
                                 <Route path="/dashboard/movies" render={(props) => <Movies {...props} user={this.props.user} />} />
 
-                                <Route path="/dashboard" render={(props) => <InterniaTable {...props} onEmployee={employee} dataError={this.state.dataError} />}
+                                <Route path="/dashboard/nexted-api" render={(props) => <InterniaTable {...props} onEmployee={employee} dataError={this.state.dataError} />}
                                 />
                                 {/* <Redirect from="/dashboard" exact to="/dashboard/movies" /> */}
                                 {/* <Route path="/not-found" component={NotFound} />
