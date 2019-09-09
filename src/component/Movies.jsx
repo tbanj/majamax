@@ -79,7 +79,6 @@ class Movies extends Component {
         const genres = [{ _id: "", name: "All Genres" }, ...data];
         this.setState({ genres: genres, movies: res.data });
         getItem.storeItem(res.data);
-        getGenre.storeItem(data);
       }
 
 

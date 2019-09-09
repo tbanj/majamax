@@ -6,8 +6,6 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import Navbar from "./template/Navbar";
 import NotFound from "./template/NotFound.jsx"
-
-
 // import Sidebar from "./sidebar";
 // import Users from "./users";
 // import Posts from "./posts";

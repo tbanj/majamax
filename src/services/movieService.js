@@ -9,6 +9,10 @@ export function getMoviesApi() {
 }
 
 
+
+
+
+
 export function getMovieApi() {
     return http.get(movieEndpoint);
 }

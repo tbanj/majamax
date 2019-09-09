@@ -176,7 +176,7 @@ class Internia extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a disabled="true" className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
+                                        <a disabled={true} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
@@ -185,7 +185,7 @@ class Internia extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a disabled="true" className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Equipments
+                                        <a disabled={true} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Equipments
 
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
