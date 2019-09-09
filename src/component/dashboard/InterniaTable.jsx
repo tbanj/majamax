@@ -5,7 +5,7 @@ class InterniaTable extends Component {
     render() {
         const { onEmployee } = this.props;
         return (
-            <div className="col-12 ">
+            <div className="col-12 " style={{overflowX:'auto'}}>
                 <div className="card">
                     <div className="card-body" style={{ paddingTop: '0px' }}>
 

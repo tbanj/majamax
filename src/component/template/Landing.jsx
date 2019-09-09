@@ -25,7 +25,8 @@ class Landing extends Form {
   }
 
   toggle(index) {
-    window.location = '/login';
+    // window.location = '/login';
+    this.props.history.push('/login');
   }
 
   getUpcomingMovie = async () => {

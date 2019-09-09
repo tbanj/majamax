@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
-import { Link, Switch, Redirect } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { userDatas, github_token } from '../../services/userService.js'
 import http from '../../services/httpService.js';
 import Sidebar from './Sidebar.jsx';
@@ -16,17 +17,14 @@ let removeAside = 'left-sidebar ';
 
 class Internia extends Component {
     state = {
-        removeWidth: '',
-        removeAside: '',
-        toggleCheck: true,
-        employee: [],
-        allData: []
+        removeWidth: '', show: true, removeAside: '', toggleCheck: true, employee: [], allData: []
     }
 
 
 
     componentDidMount() {
         this.getUserData();
+
 
     }
 
@@ -55,6 +53,9 @@ class Internia extends Component {
         }
     }
 
+    handleSidebarToggle = () => {
+        this.setState(prevState => { return { show: !prevState.show } });
+    }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.employee.length) {
@@ -68,9 +69,8 @@ class Internia extends Component {
 
     }
     handleToggle = () => {
-        this.setState({
-            toggleCheck: !this.state.toggleCheck,
-        });
+        this.setState({ toggleCheck: !this.state.toggleCheck });
+        this.setState(prevState => { return { show: !prevState.show } });
         if (!this.state.toggleCheck) {
             removeWidth = { width: '50px' };
             removeAside = 'left-sidebar ';
@@ -82,24 +82,31 @@ class Internia extends Component {
 
     }
     render() {
-        const { employee } = this.state;
+        const { employee, showSidebar, show } = this.state;
         return (
             <React.Fragment >
-                <div className="preloader">
+                {/* <div className="preloader">
                     <div className="lds-ripple">
                         <div className="lds-pos"></div>
                         <div className="lds-pos"></div>
                     </div>
-                </div>
+                </div> */}
+
+                {/* <div className="preloader">
+                    <div className="lds-ripple">
+                        <div className=""></div>
+                        <div className=""></div>
+                    </div>
+                </div> */}
 
                 <div id="main-wrapper">
                     {/*  */}
-                    <header className="topbar">
-                        <nav className="navbar top-navbar navbar-expand-md navbar-dark">
-                            <div className="navbar-header border-right" style={removeWidth}>
+                    <header className="topbar" data-navbarbg="skin6">
+                        <nav className="navbar top-navbar navbar-expand-md navbar-light">
+                            <div className="navbar-header border-right expand-logo" style={removeWidth} data-logobg="skin6">
                                 {/* This is for the sidebar toggle which is visible on mobile only */}
 
-                                <a className="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i className="font-18 fa fa-close"></i></a>
+                                <a onClick={this.handleSidebarToggle} className="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i style={{ color: "black" }} className="font-18 fa fa-close"></i></a>
                                 <Link className="navbar-brand" to="/">
                                     {/* Logo icon */}
                                     <b className="logo-icon">
@@ -109,17 +116,17 @@ class Internia extends Component {
                                         <img src="/dashboard_assets/assets/images/prop/ab1.PNG" alt="homepage" className="light-logo" />
                                     </b>
 
-                                    <span className="logo-text">
+                                    {this.state.show ? <span className="logo-text" >
                                         {/* dark Logo text */}
-                                        <img src="/dashboard_assets/assets/images/prop/1b2.PNG" alt="homepage" className="dark-logo" />
+                                        <img src="/dashboard_assets/assets/images/logos/maja4min.PNG" alt="homepage" className="dark-logo" />
                                         {/* Light Logo text */}
-                                        <img src="/dashboard_assets/assets/images/prop/1b2.PNG" className="light-logo" alt="homepage" />
-                                    </span>
+                                        <img src="/dashboard_assets/assets/images/logos/maja4min.PNG" className="px-2 light-logo" alt="homepage" />
+                                    </span> : ""}
                                 </Link>
 
 
                                 {/* ============================================================== */}
-                                <span data-toggle="collapse" data-target="#navbarSupportedContent"> </span>
+                                <span data-toggle="collapse" data-target="#navbarSupportedContent" > </span>
                                 <a className="topbartoggler d-block d-md-none waves-effect waves-light"
                                     data-toggle="tooltip"
                                     title="" data-original-title="View more"
@@ -127,11 +134,11 @@ class Internia extends Component {
                                         className=" fa fa-angle-double-right"></i></a>
                             </div>
 
-                            <div className="navbar-collapse collapse" id="navbarSupportedContent" >
+                            <div className="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
                                 {/* ============================================================== */}
                                 {/* toggle and nav items */}
                                 {/* ============================================================== */}
-                                <ul className="navbar-nav float-left mr-auto" style={{ marginLeft: '4%' }}>
+                                <ul className="navbar-nav float-left mr-auto col-md-8 offset-md-2" >
                                     <li className="nav-item d-none d-md-block">
                                         <a className="nav-link sidebartoggler waves-effect waves-light" data-sidebartype="mini-sidebar"
                                             data-toggle="tooltip" data-original-title="Collapse">
@@ -310,23 +317,23 @@ class Internia extends Component {
 
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="/dashboard_assets/assets/images/users/1.jpg" alt="user" className="rounded-circle" width="36" />
-                                            <span className="ml-2 font-medium">Steve</span><span className="fa fa-angle-down ml-2"></span>
+                                            <img src="/dashboard_assets/assets/images/users/wahab.jpeg" alt="user" className="rounded-circle" width="36" />
+                                            <span className="ml-2 font-medium">Temitope</span><span className="fa fa-angle-down ml-2"></span>
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                             <div className="d-flex no-block align-items-center p-3 mb-2 border-bottom">
-                                                <div className=""><img src="/dashboard_assets/assets/images/users/1.jpg" alt="user" className="rounded" width="80" /></div>
+                                                <div className=""><img src="/dashboard_assets/assets/images/users/wahab.jpeg" alt="user" className="rounded" width="80" /></div>
                                                 <div className="ml-2">
-                                                    <h4 className="mb-0">Steave Jobs</h4>
-                                                    <p className=" mb-0 text-muted">varun@gmail.com</p>
-                                                    <a href="javascript:void(0)" className="btn btn-sm btn-danger text-white mt-2 btn-rounded">View Profile</a>
+                                                    <h4 className="mb-0">Alabi Temitope</h4>
+                                                    <p className=" mb-0 text-muted">t.banji@rocketmail.com</p>
+                                                    <a onClick={() => { toast(`under maintenance`); }} href="javascript:void(0)" className="btn btn-sm btn-danger text-white mt-2 btn-rounded" on>View Profile</a>
                                                 </div>
                                             </div>
-                                            <a className="dropdown-item" href="javascript:void(0)"><i className="ti-user mr-1 ml-1"></i> My Profile</a>
-                                            <a className="dropdown-item" href="javascript:void(0)"><i className="ti-wallet mr-1 ml-1"></i> My Balance</a>
-                                            <a className="dropdown-item" href="javascript:void(0)"><i className="ti-email mr-1 ml-1"></i> Inbox</a>
-                                            <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="javascript:void(0)"><i className="ti-settings mr-1 ml-1"></i> Account Setting</a>
+                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-user mr-1 ml-1"></i> My Profile</a>
+                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-wallet mr-1 ml-1"></i> My Balance</a>
+                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-email mr-1 ml-1"></i> Inbox</a>
+                                            <div onClick={() => { toast(`under maintenance`); }} className="dropdown-divider"></div>
+                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-settings mr-1 ml-1"></i> Account Setting</a>
                                             <div className="dropdown-divider"></div>
                                             <a className="dropdown-item" href="/logout"><i className="fa fa-power-off mr-1 ml-1"></i> Logout</a>
                                         </div>
@@ -345,13 +352,13 @@ class Internia extends Component {
                     {/* Left Sidebar - style you can find in sidebar.scss  */}
                     {/* ============================================================== */}
                     <div className="my-5"></div>
-                    <Sidebar sendMargin={removeAside} />
-                    <div className="page-wrapper" style={{ margin: 0, backgroundColor: '#f6f5f8', }}>
+                    <Sidebar sendMargin={removeAside} showSidebar={show} />
+                    <div className="page-wrapper" style={{ margin: 0, backgroundColor: '#f6f5f8', display: 'block' }}>
 
                         <div className="clearfix mx-4 px-5">
-                            <h2 className="float-left">employee</h2>
+                            <h2 className="float-left">Movie Inventory</h2>
                             <div className="float-right col-md-2"><button style={{ color: 'white', borderRadius: '60px', backgroundColor: '#0ec8af' }} type="button"
-                                className="btn btn-rounded btn-block ">add employee</button></div>
+                                className="btn btn-rounded btn-block " onClick={() => { toast(`under maintenance`); }}>server movie</button></div>
                         </div>
                         {/* <div className="row">
                             <div className="col-lg-3 col-md-4 col-xs-12 align-self-center">
@@ -365,7 +372,7 @@ class Internia extends Component {
                         {/* <div className="container-fluid">
                             
                         </div> */}
-                        <div className="page-wrapper px-5" style={{ backgroundColor: 'transparent' }}>
+                        <div className="page-wrapper px-5 offset-md-2 col-md-8" style={{ backgroundColor: 'transparent', display: 'block' }}>
                             {/* <InterniaTable onEmployee={employee} dataError={this.state.dataError} />
                             <Route path="/admin/users" component={InterniaTable} /> */}
                             {/* inline user protected route */}

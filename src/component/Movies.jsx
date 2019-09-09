@@ -49,9 +49,9 @@ class Movies extends Component {
     else {
       movieListA = getItem.getItemsFromStorage();
       const genresArray = getGenre.getItemsFromStorage();
-      const genres = [{ _id: "", name: "All Genres" }, ...genresArray]
-      this.setState({ movies: movieListA });
-      this.setState({ genres });
+      console.log("genre: ", genresArray);
+      const genres = [...genresArray]
+      this.setState({ movies: movieListA, genres });
 
       try {
         const res = await getMoviesApi();
@@ -76,9 +76,11 @@ class Movies extends Component {
       toast(`welcome user`);
 
       if (res.data && data) {
-        const genres = [{ _id: "", name: "All Genres" }, ...data];
+        const newData = [data[0], data[1], data[3], data[10], data[13], data[16]]
+        const genres = [{ _id: "", name: "All Genres" }, ...newData];
         this.setState({ genres: genres, movies: res.data });
         getItem.storeItem(res.data);
+        getGenre.storeItem(genres);
       }
 
 
@@ -210,7 +212,7 @@ class Movies extends Component {
           {AllMovies.length > 0 ? (
             <React.Fragment>
               <div className="row my-4">
-                <div className="col-md-3">
+                <div className="col-md-3 d-none">
                   <Genres
                     allGenres={genres}
                     // clickGenre={genres._id}
@@ -221,17 +223,17 @@ class Movies extends Component {
                   />
                 </div>
 
-                <div className="col-md-9">
+                <div className="col-md-9 " style={{ overflowX: 'auto' }}>
                   {user && (
                     <React.Fragment>
                       <div><Link to="/dashboard/movies/new" className="btn waves-effect waves-light btn-rounded btn-outline-primary">New Movies</Link></div>
 
                     </React.Fragment>
                   )}
-                  <h3>Showing movies {totalCount} in the database</h3>
+                  <h3 className="my-3">Showing movies {totalCount} in the database</h3>
                   {/* <input type="text" className="form-control" id="moviewSearch" aria-describedby="emailHelp" placeholder="Search Movie" /> */}
 
-                  <div className="row col-md-8 ">
+                  <div className="row col-md-12 ">
                     <div className="col-md-3">
                       <SearchBox value={searchQuery} onChange={this.handleSearch} placeholder={"Search by Title"} /></div>
                     <div className="col-md-3">
@@ -251,19 +253,21 @@ class Movies extends Component {
                     onSort={this.handleSort}
                     user={user}
                   />
+                  <Pagination
+                    onPageChange={this.handlePageChange}
+                    itemsCount={totalCount}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                  />
                 </div>
+
               </div>
             </React.Fragment>
           ) : (
               <h3>No movies in the database</h3>
             )}
         </div>
-        <Pagination
-          onPageChange={this.handlePageChange}
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-        />
+
       </div>
     );
   }
