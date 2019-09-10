@@ -6,17 +6,17 @@ import { getCurrentUser } from './services/authService.js';
 
 import Internia from "./component/dashboard/Internia.jsx";
 
-import Movies from "./component/Movies";
-import Dashboard from "./component/Dashboard";
-import Product from "./component/Product";
-import Customers from "./component/Customers";
-import Rentals from "./component/Rentals";
-import Navbar from "./component/template/Navbar";
+// import Movies from "./component/Movies";
+// import Dashboard from "./component/Dashboard";
+// import Product from "./component/Product";
+// import Customers from "./component/Customers";
+// import Rentals from "./component/Rentals";
+// import Navbar from "./component/template/Navbar";
 import NotFound from "./component/template/NotFound";
-import MoviesForm from "./component/MoviesForm";
-import LoginForm from "./component/LoginForm";
-import NewMovie from "./component/NewMovie";
-import RegisterForm from "./component/RegisterForm";
+// import MoviesForm from "./component/MoviesForm";
+// import LoginForm from "./component/LoginForm";
+// import NewMovie from "./component/NewMovie";
+// import RegisterForm from "./component/RegisterForm";
 import Logout from "./component/Logout";
 import ProtectedRoute from "./component/template/ProtectedRoute";
 import OnboardRoute from "./component/OnboardRoute.jsx";
@@ -41,7 +41,7 @@ class App extends Component {
         <ToastContainer />
         <Switch>
           <Route path="/not-found" component={NotFound} />
-          <ProtectedRoute path="/dashboard" render={(props) => <Internia {...props} user={this.state.user} />} />
+          <ProtectedRoute path="/dashboard" render={(props) => <Internia {...props} user={user} />} />
           <Route path="/logout" component={Logout} />
           <Route path="/" render={(props) => <OnboardRoute {...props} user={this.state.user} />} />
 

@@ -39,8 +39,14 @@ class Landing extends Form {
         this.setState({ cinemaList: upcoming, isFetching: false });
         const renameCinemaList = upcoming[0];
         const renameCinemaList2 = upcoming[1];
-        this.setState({ cinemaList: upcoming, renameCinemaList, renameCinemaList2, isFetching: false });
+        this.setState({ cinemaList: upcoming, errorData: '', renameCinemaList, renameCinemaList2, isFetching: false });
       }
+      // if (upcoming) {
+      //   this.setState({ cinemaList: upcoming, isFetching: false });
+      //   const renameCinemaList = upcoming[0];
+      //   const renameCinemaList2 = upcoming[1];
+      //   this.setState({ cinemaList: upcoming, renameCinemaList, renameCinemaList2, isFetching: false });
+      // }
     }
     catch (error) {
       console.log("ff ", error);

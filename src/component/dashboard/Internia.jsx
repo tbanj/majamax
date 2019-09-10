@@ -102,7 +102,7 @@ class Internia extends Component {
                 <div id="main-wrapper">
                     {/*  */}
                     <header className="topbar" data-navbarbg="skin6">
-                        <nav className="navbar top-navbar navbar-expand-md navbar-light">
+                        <nav className="navbar top-navbar navbar-expand-md navbar-light" style={{ backgroundColor: '#a6ab99' }}>
                             <div className="navbar-header border-right expand-logo" style={removeWidth} data-logobg="skin6">
                                 {/* This is for the sidebar toggle which is visible on mobile only */}
 
@@ -192,13 +192,10 @@ class Internia extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a disabled={true} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Equipments
+                                        <Link to="/" className="nav-link " aria-haspopup="true" aria-expanded="false"> Home
 
-                                        </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                            <span className="with-arrow"><span className="bg-primary"></span></span>
+                                        </Link>
 
-                                        </div>
                                     </li>
                                     {/* ============================================================== */}
                                     {/* End Comment */}
@@ -226,7 +223,7 @@ class Internia extends Component {
                                         <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="fa fa-bell-o"></i>
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
+                                        <div style={{ left: '-85px' }} className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                             <span className="with-arrow"><span className="bg-primary"></span></span>
                                             <ul className="list-style-none">
                                                 <li>
@@ -274,7 +271,7 @@ class Internia extends Component {
                                         <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="font-18 fa fa-envelope-o"></i>
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown" aria-labelledby="2">
+                                        <div style={{ left: '-85px' }} className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown" aria-labelledby="2">
                                             <ul className="list-style-none">
                                                 <li>
                                                     <div className="drop-title border-bottom">You have 4 new messanges</div>
