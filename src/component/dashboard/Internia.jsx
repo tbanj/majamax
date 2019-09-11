@@ -11,7 +11,8 @@ import Movies from '../Movies.jsx';
 import ProtectedRoute from '../template/ProtectedRoute.jsx';
 import NewMovie from '../NewMovie.jsx';
 import MoviesForm from '../MoviesForm';
-import NotFound from '../template/NotFound.jsx';
+import Majatooltip from '../template/tooltip/Majatooltip.jsx';
+// import NotFound from '../template/NotFound.jsx';
 let removeWidth = { width: '50px' };
 let removeAside = 'left-sidebar ';
 
@@ -139,59 +140,50 @@ class Internia extends Component {
                                 {/* toggle and nav items */}
                                 {/* ============================================================== */}
                                 <ul className="navbar-nav float-left mr-auto col-md-8 offset-md-2" >
-                                    <li className="nav-item d-none d-md-block">
-                                        <a className="nav-link sidebartoggler waves-effect waves-light" data-sidebartype="mini-sidebar"
-                                            data-toggle="tooltip" data-original-title="Collapse">
-                                            <i className="fa fa-bars font-18" onClick={this.handleToggle}></i></a>
-                                        {/* <a class="btn btn-sm btn-secondary btn-circle waves-effect waves-light m-b-5" title="" data-toggle="tooltip"
-                                         data-original-title="View application"><i class="fa fa-eye"></i> </a>*/}
-
+                                    <li className="nav-item d-none d-md-block my-2">
+                                        <Majatooltip message={'Collapse'}
+                                            position={'right'}><a className="nav-link sidebartoggler waves-effect waves-light" data-sidebartype="mini-sidebar"><i
+                                                className="fa fa-bars font-18" onClick={this.handleToggle}></i></a></Majatooltip>
                                     </li>
 
 
 
 
                                     {/* ----------------------- */}
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Customers
+                                    <li className="nav-item ">
+                                        <a onClick={() => this.props.history.push("/dashboard/movies")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Dashboard Home
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                            <span className="with-arrow"><span className="bg-primary"></span></span>
 
-                                        </div>
                                     </li>
-
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rentals
+                                    <li className="nav-item">
+                                        <a onClick={() => this.props.history.push("/dashboard/customers")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Customers
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                            <span className="with-arrow"><span className="bg-primary"></span></span>
 
-                                        </div>
                                     </li>
 
-
-                                    <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Employee
+                                    <li className="nav-item ">
+                                        <a onClick={() => this.props.history.push("/dashboard/rentals")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rentals
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                            <span className="with-arrow"><span className="bg-primary"></span></span>
 
-                                        </div>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <a disabled={true} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
+
+
+                                    <li className="nav-item ">
+                                        <a onClick={() => this.props.history.push("/dashboard/employee")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Employee
 
                                         </a>
-                                        <div className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                            <span className="with-arrow"><span className="bg-primary"></span></span>
 
-                                        </div>
                                     </li>
-                                    <li className="nav-item dropdown">
+                                    <li className="nav-item ">
+                                        <a onClick={() => this.props.history.push("/dashboard/nexted-api")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
+
+                                        </a>
+
+                                    </li>
+                                    <li className="nav-item ">
                                         <Link to="/" className="nav-link " aria-haspopup="true" aria-expanded="false"> Home
 
                                         </Link>
@@ -335,46 +327,27 @@ class Internia extends Component {
                                             <a className="dropdown-item" href="/logout"><i className="fa fa-power-off mr-1 ml-1"></i> Logout</a>
                                         </div>
                                     </li>
-                                    {/* ============================================================== */}
-                                    {/* User profile and search */}
-                                    {/* ============================================================== */}
                                 </ul>
                             </div>
                         </nav>
                     </header>
-                    {/* ============================================================== */}
-                    {/* End Topbar header */}
-                    {/* ============================================================== */}
-                    {/* ============================================================== */}
-                    {/* Left Sidebar - style you can find in sidebar.scss  */}
-                    {/* ============================================================== */}
+
+
                     <div className="my-5"></div>
                     <Sidebar sendMargin={removeAside} showSidebar={show} />
                     <div className="page-wrapper" style={{ margin: 0, backgroundColor: '#f6f5f8', display: 'block' }}>
 
                         <div className="clearfix mx-4 px-5">
-                            <h2 className="float-left">Movie Inventory</h2>
+                            <h2 className="float-left">  Movie Inventory</h2>
                             <div className="float-right col-md-2"><button style={{ color: 'white', borderRadius: '60px', backgroundColor: '#0ec8af' }} type="button"
                                 className="btn btn-rounded btn-block " onClick={() => { toast(`under maintenance`); }}>server movie</button></div>
                         </div>
-                        {/* <div className="row">
-                            <div className="col-lg-3 col-md-4 col-xs-12 align-self-center">
-                                <h5 className="font-medium  mb-0">employee</h5>
-                            </div>
-                            <div className="col-lg-9 col-md-8 col-xs-12 align-self-center">
 
-
-                            </div>
-                        </div> */}
-                        {/* <div className="container-fluid">
-                            
-                        </div> */}
                         <div className="page-wrapper px-5 offset-md-2 col-md-8" style={{ backgroundColor: 'transparent', display: 'block' }}>
                             {/* <InterniaTable onEmployee={employee} dataError={this.state.dataError} />
                             <Route path="/admin/users" component={InterniaTable} /> */}
                             {/* inline user protected route */}
                             <Switch>
-
                                 <ProtectedRoute
                                     path="/dashboard/movies/:page/:id"
                                     component={MoviesForm} />

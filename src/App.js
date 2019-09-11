@@ -23,6 +23,7 @@ import OnboardRoute from "./component/OnboardRoute.jsx";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
+import ShowTool from "./component/template/tooltip/UseT.jsx";
 
 
 
@@ -40,6 +41,7 @@ class App extends Component {
       <div>
         <ToastContainer />
         <Switch>
+          <Route path="/test-tooltip" component={ShowTool} />
           <Route path="/not-found" component={NotFound} />
           <ProtectedRoute path="/dashboard" render={(props) => <Internia {...props} user={user} />} />
           <Route path="/logout" component={Logout} />

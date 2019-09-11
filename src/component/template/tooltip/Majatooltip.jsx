@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
-import './tooltip.scss';
-
-
+import "./majatooltip.scss";
 class Majatooltip extends Component {
-    state = {
-        displayTooltip: false
-    }
-    showTooltip = () => {
-        this.setState({ displayTooltip: true })
-        console.log('a');
+    constructor(props) {
+        super(props)
 
+        this.state = {
+            displayTooltip: false
+        }
+        this.hideTooltip = this.hideTooltip.bind(this)
+        this.showTooltip = this.showTooltip.bind(this)
     }
 
-    hideTooltip = () => {
+    hideTooltip() {
         this.setState({ displayTooltip: false })
-        console.log('b');
+
     }
-
+    showTooltip() {
+        this.setState({ displayTooltip: true })
+    }
     render() {
+        let message = this.props.message
+        let position = this.props.position
         return (
-            <div className='col-md-3 offset-md-4 my-4'>
-
-                <span onMouseOver={this.showTooltip}>
-                    <span className="my-4" style={{ position: 'relative' }} onMouseLeave={this.hideTooltip}>{this.state.displayTooltip && <div className={`tooltip-bubble tooltip-bottom`}>
-                        <div className='tooltip-message'>{'Hello, I am a super cool tooltip'}</div>
-                    </div>}</span>
-                    Change to red</span>
-            </div>
-
-            // 
-            /*  remove the tootip class from the span e.g className='tooltip'
-            https://codepen.io/andrewerrico/pen/OjbvvW 
-            */
-
-
+            <span style={{ position: 'relative' }}
+                onMouseLeave={this.hideTooltip}
+            >
+                {this.state.displayTooltip &&
+                    <div className={`tooltip-bubble tooltip-${position}`}>
+                        <div className='tooltip-message'>{message}</div>
+                    </div>
+                }
+                <span
+                    className='tooltip-trigger'
+                    onMouseOver={this.showTooltip}
+                >
+                    {this.props.children}
+                </span>
+            </span>
         )
     }
 }

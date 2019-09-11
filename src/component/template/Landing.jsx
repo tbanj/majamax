@@ -6,6 +6,7 @@ import { upcomingMovies, getUpcomingMovies } from "../../services/externalServic
 import Form from './Form';
 import './landing.css';
 import { setTimeout } from 'timers';
+import Majatooltip from './tooltip/Majatooltip.jsx';
 let nowShowing = [
   { _id: 1, name: 'Fansa Kauna', duration: "119mins", rated: 'TBC', genre: "drama", genreId: '1 ', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
   { _id: 2, name: 'Hobbs & Shaw', duration: "133mins", rated: "15", genre: "action", genreId: ' 2', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
@@ -182,9 +183,10 @@ class Landing extends Form {
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>Release Date: {data.duration}</p>
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>{`Preview Ratings: ${data.rated}`}</p>
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>{`${data.overview}`}</p>
+                      
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>
-                        <a data-toggle="tooltip" className="waves-effect waves-light"
-                          title="" data-original-title="Watch video"><i id="playerIcon" className="fa fa-play" style={{ marginRight: '3px' }}></i> </a>WATCH TRAILER</p>
+                        <Majatooltip message={'Watch video'}
+                          position={'right'}><span><i id="playerIcon" className="fa fa-play" style={{ marginRight: '3px' }}></i></span></Majatooltip>WATCH TRAILER</p>
 
                     </div>
                   </div>

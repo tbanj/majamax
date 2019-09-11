@@ -15,18 +15,10 @@ body {
   
   $tooltip-color: rgba(0,0,0,.7);
   $tooltip-text-color: #fff;
-
-  .colorChange {
-    color:blue;
-  }
-
-  .tooltip {
-    position: relative;
-  }
   
   .tooltip-trigger {
     display: inline-block;
-    text-decoration: underline;
+    // text-decoration: underline;
   }
   
   .tooltip-bubble {
@@ -40,21 +32,6 @@ body {
     }
   }
   
-  .tooltip-top {
-    bottom: 100%;
-    left: 50%;
-    padding-bottom: 9px;
-    transform: translateX(-50%);
-    
-    &::after {
-      border-left: 9px solid transparent;
-      border-right: 9px solid transparent;
-      border-top: 9px solid $tooltip-color;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
   
   .tooltip-bottom {
     top: 100%;
@@ -72,21 +49,7 @@ body {
     }
   }
   
-  .tooltip-left {
-    top: 50%;
-    right: 100%;
-    padding-right: 9px;
-    transform: translateY(-50%);
-    
-    &::after {
-      border-left: 9px solid $tooltip-color;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-    }
-  }
+  
   
   .tooltip-right {
     top: 50%;
