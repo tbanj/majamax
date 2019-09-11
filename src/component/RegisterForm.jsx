@@ -49,7 +49,7 @@ class RegisterForm extends Form {
 
     render() {
         // check if user is already login, if yes redirect back to dashboard
-        // if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
+        if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
         return (
             <div className="backgroundRegister row" >
                 <div className="container-fluid">

@@ -25,8 +25,6 @@ export async function getUpcomingMovies() {
     console.log("server error");
 }
 
-
-
 export async function genresInfo() {
     try {
         const res = await getGenresApi();

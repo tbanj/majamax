@@ -49,7 +49,6 @@ class Movies extends Component {
     else {
       movieListA = getItem.getItemsFromStorage();
       const genresArray = getGenre.getItemsFromStorage();
-      console.log("genre: ", genresArray);
       const genres = [...genresArray]
       this.setState({ movies: movieListA, genres });
 

@@ -59,7 +59,7 @@ class LoginForm extends Form {
     }
 
     render() {
-        if (getCurrentUser()) return <Redirect to="/dashboard/movies" />
+        if (getCurrentUser()) return <Redirect to={"/dashboard/movies"} />
         return (
             <div className="backgroundLogin row">
                 <div className="container-fluid">

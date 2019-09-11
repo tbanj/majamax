@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
 class InterniaTable extends Component {
     state = {}
     render() {
         const { onEmployee } = this.props;
         return (
-            <div className="col-12 " style={{overflowX:'auto'}}>
+            <div className="col-12 my-5" style={{overflowX:'auto'}}>
                 <div className="card">
                     <div className="card-body" style={{ paddingTop: '0px' }}>
 

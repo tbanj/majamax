@@ -1,20 +1,12 @@
 import React from 'react';
 import Joi from 'joi-browser';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { upcomingMovies, getUpcomingMovies } from "../../services/externalService.js";
-import Form from './Form';
-import './landing.css';
-import { setTimeout } from 'timers';
+import { getUpcomingMovies } from "../../services/externalService.js";
 import Majatooltip from './tooltip/Majatooltip.jsx';
-let nowShowing = [
-  { _id: 1, name: 'Fansa Kauna', duration: "119mins", rated: 'TBC', genre: "drama", genreId: '1 ', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
-  { _id: 2, name: 'Hobbs & Shaw', duration: "133mins", rated: "15", genre: "action", genreId: ' 2', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
-  { _id: 3, name: 'The Ten Virgins', duration: "109mins", rated: 'TBC', genre: "drama", genreId: '3', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
-  { _id: 4, name: 'Crawl', duration: "87mins", rated: '15', genre: "action", genreId: '4', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
-  { _id: 5, name: `Thank God I'm Funny(TGIF)`, duration: "84mins", rated: '12A', genre: "comedy", genreId: '5', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' },
-  { _id: 6, name: 'The Lion King', duration: "84mins", rated: '12A', genre: "adventure", genreId: '6', img: '/dashboard_assets/assets/images/kitchen_adventurer_caramel.JPG' }
-]
+import Form from './Form';
+import "../template/test.css";
+import './landing.css';
+
+
 
 class Landing extends Form {
   constructor() {
@@ -35,7 +27,6 @@ class Landing extends Form {
       let upcoming = await getUpcomingMovies();
       if (!upcoming) {
         this.setState({ errorData: 'check your network', cinemaList: [], isFetching: false });
-        console.log("qeeq ", upcoming);
       } else {
         this.setState({ cinemaList: upcoming, isFetching: false });
         const renameCinemaList = upcoming[0];
@@ -50,20 +41,16 @@ class Landing extends Form {
       // }
     }
     catch (error) {
-      console.log("ff ", error);
+      console.log("ERROR Encounter ", error);
     }
 
   }
 
   componentDidMount() {
     this.getUpcomingMovie();
-    // this.setState({ cinemaList: nowShowing });
-
-
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("mmm ", this.state.cinemaListff);
 
 
   }
@@ -81,8 +68,7 @@ class Landing extends Form {
   }
 
   render() {
-    const { cinemaList, displayButton, renameCinemaList, renameCinemaList2 } = this.state;
-    console.log(renameCinemaList, renameCinemaList.background_img);
+    const { cinemaList, renameCinemaList, renameCinemaList2 } = this.state;
 
 
     return (<div className="" style={{ backgroundColor: 'white' }}>
@@ -166,7 +152,7 @@ class Landing extends Form {
                 <div key={key} className="row data-list mx-1 my-4" >
 
                   <div className={`col-md-4 col-sm-4`} >
-                    <img style={{ borderRadius: '9px' }} className="card-img-bottom" src={data.img} alt="Card image cap" />
+                    <img style={{ borderRadius: '9px' }} className="card-img-bottom" src={data.img} alt="home log" />
                   </div>
                   <div className="col-md-8 col-sm-8">
                     <div className="card-body ">
@@ -183,10 +169,10 @@ class Landing extends Form {
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>Release Date: {data.duration}</p>
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>{`Preview Ratings: ${data.rated}`}</p>
                       <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>{`${data.overview}`}</p>
-                      
-                      <p className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>
+
+                      <div className="card-text" style={{ FONTFAMILY: 'SANS-SERIF', fontSize: '14px' }}>
                         <Majatooltip message={'Watch video'}
-                          position={'right'}><span><i id="playerIcon" className="fa fa-play" style={{ marginRight: '3px' }}></i></span></Majatooltip>WATCH TRAILER</p>
+                          position={'right'}><span><i id="playerIcon" className="fa fa-play" style={{ marginRight: '3px' }}></i></span></Majatooltip>WATCH TRAILER</div>
 
                     </div>
                   </div>

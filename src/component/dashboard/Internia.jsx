@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
-import { Link, Switch } from "react-router-dom";
+import { Link, Switch, NavLink } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { userDatas, github_token } from '../../services/userService.js'
 import http from '../../services/httpService.js';
@@ -62,10 +62,6 @@ class Internia extends Component {
         if (this.state.employee.length) {
         }
     }
-
-
-
-
     styleWidth = {
 
     }
@@ -83,32 +79,20 @@ class Internia extends Component {
 
     }
     render() {
-        const { employee, showSidebar, show } = this.state;
+        const { employee, show } = this.state;
         return (
             <React.Fragment >
-                {/* <div className="preloader">
-                    <div className="lds-ripple">
-                        <div className="lds-pos"></div>
-                        <div className="lds-pos"></div>
-                    </div>
-                </div> */}
 
-                {/* <div className="preloader">
-                    <div className="lds-ripple">
-                        <div className=""></div>
-                        <div className=""></div>
-                    </div>
-                </div> */}
 
                 <div id="main-wrapper">
                     {/*  */}
-                    <header className="topbar" data-navbarbg="skin6">
+                    <header className="topbar" data-navbarbg={"skin6"}>
                         <nav className="navbar top-navbar navbar-expand-md navbar-light" style={{ backgroundColor: '#a6ab99' }}>
-                            <div className="navbar-header border-right expand-logo" style={removeWidth} data-logobg="skin6">
+                            <div className="navbar-header border-right expand-logo" style={removeWidth} data-logobg={"skin6"}>
                                 {/* This is for the sidebar toggle which is visible on mobile only */}
 
-                                <a onClick={this.handleSidebarToggle} className="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i style={{ color: "black" }} className="font-18 fa fa-close"></i></a>
-                                <Link className="navbar-brand" to="/">
+                                <a id="modalClose" onClick={this.handleSidebarToggle} className="nav-toggler  d-block d-md-none" href="#modalClose"><i style={{ color: "black" }} className="font-18 fa fa-close"></i></a>
+                                <Link className="navbar-brand" to={"/"}>
                                     {/* Logo icon */}
                                     <b className="logo-icon">
 
@@ -128,11 +112,11 @@ class Internia extends Component {
 
                                 {/* ============================================================== */}
                                 <span data-toggle="collapse" data-target="#navbarSupportedContent" > </span>
-                                <a className="topbartoggler d-block d-md-none waves-effect waves-light"
-                                    data-toggle="tooltip"
+                                <Link className="topbartoggler d-block d-md-none waves-effect waves-light"
+                                    data-toggle="tooltip" to={""}
                                     title="" data-original-title="View more"
                                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                                        className=" fa fa-angle-double-right"></i></a>
+                                        className=" fa fa-angle-double-right"></i></Link>
                             </div>
 
                             <div className="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
@@ -142,63 +126,55 @@ class Internia extends Component {
                                 <ul className="navbar-nav float-left mr-auto col-md-8 offset-md-2" >
                                     <li className="nav-item d-none d-md-block my-2">
                                         <Majatooltip message={'Collapse'}
-                                            position={'right'}><a className="nav-link sidebartoggler waves-effect waves-light" data-sidebartype="mini-sidebar"><i
-                                                className="fa fa-bars font-18" onClick={this.handleToggle}></i></a></Majatooltip>
+                                            position={'right'}><NavLink className="nav-link sidebartoggler " to={""} data-sidebartype="mini-sidebar"><i
+                                                className="fa fa-bars font-18" onClick={this.handleToggle}></i></NavLink> </Majatooltip>
                                     </li>
 
 
 
 
                                     {/* ----------------------- */}
-                                    <li className="nav-item ">
-                                        <a onClick={() => this.props.history.push("/dashboard/movies")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Dashboard Home
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link dropdown-toggle " to="/dashboard/movies" aria-haspopup={"true"} aria-expanded="false"> Dashboard Home
 
-                                        </a>
-
-                                    </li>
-                                    <li className="nav-item">
-                                        <a onClick={() => this.props.history.push("/dashboard/customers")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Customers
-
-                                        </a>
+                                        </NavLink>
 
                                     </li>
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link  dropdown-toggle " to="/dashboard/customers" aria-haspopup={"true"} aria-expanded="false"> Customers
 
-                                    <li className="nav-item ">
-                                        <a onClick={() => this.props.history.push("/dashboard/rentals")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rentals
-
-                                        </a>
+                                        </NavLink>
 
                                     </li>
 
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link dropdown-toggle" to="/dashboard/rentals" aria-haspopup={"true"} aria-expanded="false"> Rentals
 
-                                    <li className="nav-item ">
-                                        <a onClick={() => this.props.history.push("/dashboard/employee")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Employee
-
-                                        </a>
-
-                                    </li>
-                                    <li className="nav-item ">
-                                        <a onClick={() => this.props.history.push("/dashboard/nexted-api")} className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Clients
-
-                                        </a>
+                                        </NavLink>
 
                                     </li>
-                                    <li className="nav-item ">
-                                        <Link to="/" className="nav-link " aria-haspopup="true" aria-expanded="false"> Home
 
-                                        </Link>
+
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link dropdown-toggle " to="/dashboard/employee" aria-haspopup={"true"} aria-expanded="false"> Employee
+
+                                        </NavLink>
 
                                     </li>
-                                    {/* ============================================================== */}
-                                    {/* End Comment */}
-                                    {/* ============================================================== */}
-                                    {/* ============================================================== */}
-                                    {/* mega menu */}
-                                    {/* ============================================================== */}
+                                    <li className="nav-item dropdown my-2">
 
-                                    {/* ============================================================== */}
-                                    {/* End mega menu */}
-                                    {/* ============================================================== */}
+
+                                        <Majatooltip message={'Mobile view, Table is scrollable'}
+                                            position={'right'}><NavLink className="nav-link dropdown-toggle " to={"/dashboard/nexted-api"} aria-haspopup={"true"} aria-expanded="false">Clients</NavLink> </Majatooltip>
+
+                                    </li>
+                                    <li className="nav-item dropdown">
+                                        <NavLink to={"/"} className="nav-link dropdown-toggle" aria-haspopup={"true"} aria-expanded="false"> Home
+
+                                        </NavLink>
+
+                                    </li>
+
                                 </ul>
                                 {/* ============================================================== */}
                                 {/* Right side toggle and nav items */}
@@ -212,9 +188,9 @@ class Internia extends Component {
 
                                     {/* notification */}
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="fa fa-bell-o"></i>
+                                        <NavLink className="nav-link dropdown-toggle waves-effect waves-dark" to={""} data-toggle="dropdown" aria-haspopup={"true"} aria-expanded="false"> <i className="fa fa-bell-o"></i>
 
-                                        </a>
+                                        </NavLink>
                                         <div style={{ left: '-85px' }} className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                             <span className="with-arrow"><span className="bg-primary"></span></span>
                                             <ul className="list-style-none">
@@ -224,33 +200,33 @@ class Internia extends Component {
                                                 <li>
                                                     <div className="message-center notifications">
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="btn btn-danger btn-circle"><i className="fa fa-link"></i></span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Luanch Admin</h5> <span className="mail-desc">Just see the my new admin!</span> <span className="time">9:30 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="btn btn-success btn-circle"><i className="ti-calendar"></i></span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Event today</h5> <span className="mail-desc">Just a reminder that you have event</span> <span className="time">9:10 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="btn btn-info btn-circle"><i className="ti-settings"></i></span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Settings</h5> <span className="mail-desc">You can customize this template as you want</span> <span className="time">9:08 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="btn btn-primary btn-circle"><i className="ti-user"></i></span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Pavan kumar</h5> <span className="mail-desc">Just see the my admin!</span> <span className="time">9:02 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <a className="nav-link text-center mb-1 text-dark" href="javascript:void(0);"> <strong>See all Tasks</strong> <i className="fa fa-angle-right"></i> </a>
+                                                    <NavLink className="nav-link text-center mb-1 text-dark" to={""} > <strong>See all Tasks</strong> <i className="fa fa-angle-right"></i> </NavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -260,9 +236,9 @@ class Internia extends Component {
                                     {/* Messages */}
                                     {/* ============================================================== */}
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="font-18 fa fa-envelope-o"></i>
+                                        <Link className="nav-link dropdown-toggle waves-effect waves-dark" to={""} id="2" data-toggle="dropdown" aria-haspopup={"true"} aria-expanded="false"> <i className="font-18 fa fa-envelope-o"></i>
 
-                                        </a>
+                                        </Link>
                                         <div style={{ left: '-85px' }} className="dropdown-menu dropdown-menu-left mailbox animated bounceInDown" aria-labelledby="2">
                                             <ul className="list-style-none">
                                                 <li>
@@ -271,33 +247,33 @@ class Internia extends Component {
                                                 <li>
                                                     <div className="message-center message-body">
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="user-img"> <img src="/dashboard_assets/assets/images/users/1.jpg" alt="user" className="rounded-circle" /> <span className="profile-status online pull-right"></span> </span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Pavan kumar</h5> <span className="mail-desc">Just see the my admin!</span> <span className="time">9:30 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="user-img"> <img src="/dashboard_assets/assets/images/users/2.jpg" alt="user" className="rounded-circle" /> <span className="profile-status busy pull-right"></span> </span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Sonu Nigam</h5> <span className="mail-desc">I've sung a song! See you at</span> <span className="time">9:10 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="user-img"> <img src="/dashboard_assets/assets/images/users/3.jpg" alt="user" className="rounded-circle" /> <span className="profile-status away pull-right"></span> </span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Arijit Sinh</h5> <span className="mail-desc">I am a singer!</span> <span className="time">9:08 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                         {/* Message */}
-                                                        <a href="javascript:void(0)" className="message-item">
+                                                        <Link to={""} className="message-item">
                                                             <span className="user-img"> <img src="/dashboard_assets/assets/images/users/4.jpg" alt="user" className="rounded-circle" /> <span className="profile-status offline pull-right"></span> </span>
                                                             <span className="mail-contnet">
                                                                 <h5 className="message-title">Pavan kumar</h5> <span className="mail-desc">Just see the my admin!</span> <span className="time">9:02 AM</span> </span>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <a className="nav-link text-center link text-dark" href="javascript:void(0);"> <b>See all Notifications</b> <i className="fa fa-angle-right"></i> </a>
+                                                    <NavLink className="nav-link text-center link text-dark" to={""} > <b>See all Notifications</b> <i className="fa fa-angle-right"></i> </NavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -305,26 +281,26 @@ class Internia extends Component {
 
 
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <NavLink className="nav-link dropdown-toggle waves-effect waves-dark" to={""} data-toggle="dropdown" aria-haspopup={"true"} aria-expanded="false">
                                             <img src="/dashboard_assets/assets/images/users/wahab.jpeg" alt="user" className="rounded-circle" width="36" />
                                             <span className="ml-2 font-medium">Temitope</span><span className="fa fa-angle-down ml-2"></span>
-                                        </a>
+                                        </NavLink>
                                         <div className="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                             <div className="d-flex no-block align-items-center p-3 mb-2 border-bottom">
                                                 <div className=""><img src="/dashboard_assets/assets/images/users/wahab.jpeg" alt="user" className="rounded" width="80" /></div>
                                                 <div className="ml-2">
                                                     <h4 className="mb-0">Alabi Temitope</h4>
                                                     <p className=" mb-0 text-muted">t.banji@rocketmail.com</p>
-                                                    <a onClick={() => { toast(`under maintenance`); }} href="javascript:void(0)" className="btn btn-sm btn-danger text-white mt-2 btn-rounded" on>View Profile</a>
+                                                    <Link onClick={() => { toast(`under maintenance`); }} to={""} className="btn btn-sm btn-danger text-white mt-2 btn-rounded" >View Profile</Link>
                                                 </div>
                                             </div>
-                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-user mr-1 ml-1"></i> My Profile</a>
-                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-wallet mr-1 ml-1"></i> My Balance</a>
-                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-email mr-1 ml-1"></i> Inbox</a>
+                                            <Link onClick={() => { toast(`under maintenance`); }} className="dropdown-item" to={""} ><i className="ti-user mr-1 ml-1"></i> My Profile</Link>
+                                            <Link onClick={() => { toast(`under maintenance`); }} className="dropdown-item" to={""} ><i className="ti-wallet mr-1 ml-1"></i> My Balance</Link>
+                                            <Link onClick={() => { toast(`under maintenance`); }} className="dropdown-item" to={""} ><i className="ti-email mr-1 ml-1"></i> Inbox</Link>
                                             <div onClick={() => { toast(`under maintenance`); }} className="dropdown-divider"></div>
-                                            <a onClick={() => { toast(`under maintenance`); }} className="dropdown-item" href="javascript:void(0)"><i className="ti-settings mr-1 ml-1"></i> Account Setting</a>
+                                            <Link onClick={() => { toast(`under maintenance`); }} className="dropdown-item" to={""} ><i className="ti-settings mr-1 ml-1"></i> Account Setting</Link>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="/logout"><i className="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                                            <Link className="dropdown-item" to="/logout"><i className="fa fa-power-off mr-1 ml-1"></i> Logout</Link>
                                         </div>
                                     </li>
                                 </ul>
@@ -358,15 +334,13 @@ class Internia extends Component {
 
                                 <Route path="/dashboard/nexted-api" render={(props) => <InterniaTable {...props} onEmployee={employee} dataError={this.state.dataError} />}
                                 />
-                                {/* <Redirect from="/dashboard" exact to="/dashboard/movies" /> */}
-                                {/* <Route path="/not-found" component={NotFound} />
-                                <Redirect to="/not-found" /> */}
+
                             </Switch>
 
                         </div>
 
                         <footer className="footer text-center">
-                            All Rights Reserved by Alabi Temitope Wahab <a href="https://github.com/tbanj/"></a>.
+                            All Rights Reserved by Alabi Temitope Wahab <Link to="https://github.com/tbanj/"></Link> .
                         </footer>
 
                     </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import logService from './logService';
-import { toast } from "react-toastify";
+// import logService from './logService';
+// import { toast } from "react-toastify";
 
 axios.create({
     baseURL: process.env.REACT_APP_API_URL

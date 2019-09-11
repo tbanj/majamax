@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import "./sidebar.css";
 // let sidebarTab =[{id: 1, logourl: '/dashboard_assets/assets/images/users/5.jpg', name: 'Arena Sports'},
@@ -38,9 +39,9 @@ class Sidebar extends Component {
                                                 <div className="" id="headingOne" style={{ borderBottom: '1px solid #edf1f5' }}>
                                                     <div className="" id="headingOne" style={{ borderBottom: '1px solid #edf1f5' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/2a.PNG"
                                                         alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-3">
-                                                            <a onClick={() => { toast(`under maintenance`); }}
+                                                            <Link onClick={() => { toast(`under maintenance`); }}
                                                                 data-toggle="collapse" data-target="#collapseOne"
-                                                                aria-expanded="true" aria-controls="collapseOne">Customers</a></div></div>
+                                                                to="" aria-expanded="true" aria-controls="collapseOne">Customers</Link></div></div>
                                                     </div>
 
                                                     <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -64,8 +65,8 @@ class Sidebar extends Component {
                                                 <div className="" id="headingTwo" style={{ borderBottom: '1px solid #edf1f5' }}>
                                                     <div className="" id="headingTwo" style={{ borderBottom: '1px solid #edf1f5' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/3a.PNG"
                                                         alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-4">
-                                                            <a data-toggle="collapse" data-target="#collapseTwo" onClick={() => { toast(`under maintenance`); }}
-                                                                aria-expanded="true" aria-controls="collapseTwo">Rentals</a></div></div>
+                                                            <Link data-toggle="collapse" data-target="#collapseTwo" onClick={() => { toast(`under maintenance`); }}
+                                                                to="" aria-expanded="true" aria-controls="collapseTwo">Rentals</Link></div></div>
                                                     </div>
 
                                                 </div>
@@ -80,8 +81,8 @@ class Sidebar extends Component {
                                                 <div className="" id="headingThree" style={{ borderBottom: '1px solid #edf1f5' }}>
                                                     <div className="" id="headingThree" style={{ borderBottom: '1px solid #edf1f5' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/4a.PNG"
                                                         alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-3">
-                                                            <a data-toggle="collapse" data-target="#collapseThree" onClick={() => { toast(`under maintenance`); }}
-                                                                aria-expanded="true" aria-controls="collapseThree">Employee</a></div></div>
+                                                            <Link data-toggle="collapse" data-target="#collapseThree" onClick={() => { toast(`under maintenance`); }}
+                                                                to="" aria-expanded="true" aria-controls="collapseThree">Employee</Link></div></div>
                                                     </div>
 
 
@@ -97,8 +98,8 @@ class Sidebar extends Component {
                                                 <div className="" id="headingFour" style={{ borderBottom: '1px solid #edf1f5' }}>
                                                     <div className="" id="headingFour" style={{ borderBottom: '1px solid #edf1f5' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/5a.PNG"
                                                         alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-3">
-                                                            <a data-toggle="collapse" data-target="#collapseFour" onClick={() => { toast(`under maintenance`); }}
-                                                                aria-expanded="true" aria-controls="collapseFour">Clients</a></div></div>
+                                                            <Link data-toggle="collapse" data-target="#collapseFour" onClick={() => { toast(`under maintenance`); }}
+                                                                to="" aria-expanded="true" aria-controls="collapseFour">Clients</Link></div></div>
                                                     </div>
 
 
@@ -124,10 +125,10 @@ class Sidebar extends Component {
                                         <div id="accordion">
                                             <div className="card" style={{ marginBottom: '0px', borderRadius: '0px 0px 10px 10px' }}>
                                                 <div className="" id="headingSeven" style={{ borderBottom: '1px solid #edf1f5' }}>
-                                                    <div className="" id="headingSeven" style={{ borderBottom: '1px solid #edf1f5', marginBottom: '10%', borderBottom: '0px ' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/8a.PNG"
-                                                        alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-3"><a
-                                                            data-toggle="collapse" data-target="#collapseSeven" onClick={() => { toast(`under maintenance`); }}
-                                                            aria-expanded="true" aria-controls="collapseSeven">Equipments</a></div></div>
+                                                    <div className="" id="headingSeven" style={{ borderBottom: '1px solid #edf1f5', marginBottom: '10%' }}><div className="row mx-2"><div className="col-md-4 my-1"><img src="/dashboard_assets/assets/images/prop/8a.PNG"
+                                                        alt="user" width="60" className="img-circle" style={{ borderRadius: '50%' }} /></div><div className="col-md-8 my-3"><Link
+                                                            to="" data-toggle="collapse" data-target="#collapseSeven" onClick={() => { toast(`under maintenance`); }}
+                                                            aria-expanded="true" aria-controls="collapseSeven">Equipments</Link></div></div>
                                                     </div>
 
 

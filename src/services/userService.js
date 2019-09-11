@@ -17,7 +17,6 @@ export function register(user) {
 
 export async function userDatas() {
     const { data } = await http.get(githubUserEndpoint);
-    console.log(data)
     return data;
 }
 

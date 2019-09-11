@@ -1,11 +1,12 @@
 import React from "react";
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import TestingA from "./template/TestingA";
+import { Route,  Switch, Redirect } from 'react-router-dom';
+// import TestingA from "./template/TestingA";
 import Landing from "./template/Landing";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import Navbar from "./template/Navbar";
 import NotFound from "./template/NotFound.jsx"
+// import "./template/test.css";
 // import Sidebar from "./sidebar";
 // import Users from "./users";
 // import Posts from "./posts";
